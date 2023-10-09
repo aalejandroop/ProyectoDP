@@ -7,8 +7,8 @@
  */
 public class Location
 {
-    public int x;  //TODO cambiar a private
-    public int y;  //TODO cambiar a private
+    private int x;  //TODO cambiar a private
+    private int y;  //TODO cambiar a private
 
     /**
      * Model a location in the city.
@@ -45,6 +45,11 @@ public class Location
     {    
         return y;
     }
+    
+    public void setLocation(int fila, int columna){
+        x = fila;
+        y = columna;
+    }
 
     /**
      * Generate the next location to visit in order to
@@ -58,6 +63,45 @@ public class Location
         //TODO ahora mismo este método devuelve directamente el destino final
         //PERO DEBERIA ir calculando y devolviendo la siguiente posición por la que 
         // va pasando el taxi hasta llegar al destino
+        int filaActual, columnaActual;
+        filaActual = this.getX();
+        columnaActual = this.getY();
+        
+        if(filaActual != destination.getX() && columnaActual != destination.getY()){
+            if(filaActual < destination.getX()){
+                filaActual++;
+            }
+            else{
+                filaActual--;
+            }
+            if(columnaActual < destination.getY()){
+                columnaActual++;
+            }
+            else{
+                columnaActual--;
+            }
+        }
+        else{
+            if(filaActual != destination.getX() && columnaActual == destination.getY()){
+                if(filaActual < destination.getX()){
+                    filaActual++;
+                }
+                else{
+                    filaActual--;
+                }
+            }
+            else{
+                if(filaActual == destination.getX() && columnaActual != destination.getY()){
+                    if(columnaActual < destination.getY()){
+                        columnaActual++;
+                    }
+                    else{
+                        columnaActual--;
+                    }
+                }
+            }
+        }
+        destination.setLocation(filaActual, columnaActual);
         return destination;
     }
 
@@ -68,9 +112,23 @@ public class Location
      * @return the number of movement steps.
      */
     public int distance(Location destination)
-    {
+    {   
+        Location l;
         //TODO implementar este método que devuelve el número total de pasos para alcanzar el destino
-        return 1;
+        int i = destination.getX() - this.getX();
+        if (i < 0){
+            i = i * -1;
+        }
+        int j = destination.getY() - this.getY();
+        if (j < 0){
+            j = j * -1;
+        }
+        if (i > j){
+            return i;
+        }
+        else{
+            return j;   
+        }
     }
 
     /**
