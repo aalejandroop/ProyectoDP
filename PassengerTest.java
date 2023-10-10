@@ -12,6 +12,9 @@ import org.junit.Test;
  */
 public class PassengerTest
 {
+    Location startLocation;
+    Location destination;
+    Passenger pasajero;
     /**
      * Default constructor for test class PassengerTest
      */
@@ -26,7 +29,10 @@ public class PassengerTest
      */
     @Before
     public void setUp()
-    {
+    {   
+        startLocation = new Location(1, 2);
+        destination = new Location(2, 2);
+        pasajero = new Passenger(startLocation, destination, "Pedro", "Taxi Emilio"); 
     }
 
     /**
@@ -50,6 +56,11 @@ public class PassengerTest
         //TODO implementar este método
         // Testear la creación correcta de objetos de tipo Passenger comprobando 
         // que la inicialización de campos como dirección de recogida y destino es correcta.
+        assertEquals(pasajero.getPickup().getX(),1);
+        assertEquals(pasajero.getPickup().getY(),2);
+        
+        assertEquals(pasajero.getDestination().getX(),2);
+        assertEquals(pasajero.getDestination().getY(),2);
     }
 
     /**
@@ -62,6 +73,8 @@ public class PassengerTest
         //TODO implementar este método
         // Testear el método que devuelve el nombre del taxi que ha transportado
         //al pasajero/a
+        assertEquals(pasajero.getNombreTaxi(), "Taxi Emilio");
+        
     }
 
     /**

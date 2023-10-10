@@ -8,16 +8,20 @@
 public class Taxi 
 {
     // The Taxi Company of this Taxi.
-    public TransportCompany company;   //TODO cambiar a private
+    private TransportCompany company;   //TODO cambiar a private
     // Where the vehicle is.
-    public Location location;     //TODO cambiar a private
+    private Location location;     //TODO cambiar a private
     // Where the vehicle is headed.
-    public  Location targetLocation;   //TODO cambiar a private
+    private  Location targetLocation;   //TODO cambiar a private
     // Record how often the vehicle has nothing to do.
-    public int idleCount;       //TODO cambiar a private
+    private int idleCount;       //TODO cambiar a private
     //name of the taxi
-    public String name; //TODO cambiar a private
+    private String name; //TODO cambiar a private
     //TODO añadir campos necesarios
+    
+    private Passenger passenger;
+    
+    private int passengersTransported;
 
     /**
      * Constructor of class Vehicle
@@ -25,7 +29,7 @@ public class Taxi
      * @param location The vehicle's starting point. Must not be null.
      * @throws NullPointerException If company or location is null.
      */
-    public Taxi(TransportCompany company, Location location, String name)
+    public Taxi(TransportCompany company, Location location, String name, Passenger passenger)
     {
         if(company == null) {
             throw new NullPointerException("company");
@@ -37,6 +41,9 @@ public class Taxi
         this.location = location;
         targetLocation = null;
         idleCount = 0;
+        this.passenger = passenger;
+        passengersTransported = 0;
+        
         //TODO resto de inicializaciones pendientes
     }
 

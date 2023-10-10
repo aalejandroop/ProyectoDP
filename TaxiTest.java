@@ -38,7 +38,7 @@ public class TaxiTest
         Location pickup = new Location(1, 2);
         Location destination = new Location(5, 6);
 
-        passenger = new Passenger(pickup, destination,"Kevin");
+        passenger = new Passenger(pickup, destination,"Kevin","");
         taxi = new Taxi(company, taxiLocation,"T1");
         //TODO
         //Completar (si es necesario) este método

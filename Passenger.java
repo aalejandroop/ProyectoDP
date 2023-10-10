@@ -21,7 +21,7 @@ public class Passenger
      * @param name The passenger's name
      * @throws NullPointerException If either location is null.
      */
-    public Passenger(Location pickup, Location destination, String name)
+    public Passenger(Location pickup, Location destination, String name, String taxiName)
     {
         //TODO modificar el constructor o crear otro constructor si necesario
         if(pickup == null) {
@@ -33,6 +33,7 @@ public class Passenger
         this.pickup = pickup;
         this.destination = destination;
         this.name = name;
+        this.taxiName = taxiName;
         //incluir inicialización del campo para el nombre del taxi que lo ha transportado
     }
 
@@ -68,13 +69,19 @@ public class Passenger
         return pickup;
     }
     
-
     //TODO Debe poder devolver la localización donde hay que llevar al Passenger.
 
     //TODO Debe poder modificarse el nombre del taxi usado.
+    public void setNombreTaxi(String nombreTaxi)
+    {
+        taxiName = nombreTaxi;
+    }    
     
     //TODO Debe poder devolver el nombre del taxi usado..
-    
+    public String getNombreTaxi()
+    {
+        return taxiName;
+    }    
     
     /**
      * Show the final information about the passenger, including the name of the taxi that used.
@@ -82,7 +89,8 @@ public class Passenger
     public String showFinalInfo()
     {
         // TO DO
-        return "";
+        return "Passenger "+ getName()+" travelling to " +
+        destination + " in a taxi whose name is " + getNombreTaxi();
     }
 
 }

@@ -86,9 +86,9 @@ public class DemoInicial
      */
     private void createPassengers() {
         Passenger passenger1 = new Passenger(new Location(0, 0),
-                new Location(2, 6),"Lucy");
+                new Location(2, 6),"Lucy", "");
         Passenger passenger2 = new Passenger(new Location(6, 6),
-                new Location(5,2),"Gru");
+                new Location(5,2),"Gru", "");
         company.addPassenger(passenger1);
         company.addPassenger(passenger2);
     }

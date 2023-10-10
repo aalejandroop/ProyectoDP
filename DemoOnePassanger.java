@@ -79,7 +79,7 @@ public class DemoOnePassanger
      */
     private void createPassengers() {
         Passenger passenger = new Passenger(new Location(6, 6),
-                new Location(5,2),"Lucy");
+                new Location(5,2),"Lucy","");
         company.addPassenger(passenger);
     }
 

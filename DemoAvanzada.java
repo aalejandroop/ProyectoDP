@@ -96,17 +96,17 @@ public class DemoAvanzada
      */
     private void createPassengers() {
         Passenger passenger1 = new Passenger(new Location(2, 2),
-                new Location(10, 10),"Kevin");
+                new Location(10, 10),"Kevin","");
         Passenger passenger2 = new Passenger(new Location(4, 16),
-                new Location(19,0),"Margo");
+                new Location(19,0),"Margo","");
         Passenger passenger3 = new Passenger(new Location(10, 10),
-                new Location(2,2),"Edith");
+                new Location(2,2),"Edith","");
         Passenger passenger4 = new Passenger(new Location(15, 3),
-                new Location(7,1),"Stuart");
+                new Location(7,1),"Stuart","");
         Passenger passenger5 = new Passenger(new Location(11, 6),
-                new Location(19,19),"Agnes");
+                new Location(19,19),"Agnes","");
         Passenger passenger6 = new Passenger(new Location(13, 17),
-                new Location(0,0),"Bob");
+                new Location(0,0),"Bob","");
         company.addPassenger(passenger1);
         company.addPassenger(passenger2);
         company.addPassenger(passenger3);
