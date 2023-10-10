@@ -11,6 +11,7 @@ public class Passenger
     private String name;
     private Location pickup;
     private Location destination;
+    private String taxiName;
     //incluir campo para el nombre del taxi que lo ha transportado
 
     /**
@@ -61,9 +62,12 @@ public class Passenger
         pickup + " to " + destination;
     }
     
-    
-    
     //TODO Debe poder devolver la posición donde hay que recoger al Passenger.
+    public Location getPickup()
+    {
+        return pickup;
+    }
+    
 
     //TODO Debe poder devolver la localización donde hay que llevar al Passenger.
 

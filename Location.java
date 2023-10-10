@@ -63,9 +63,11 @@ public class Location
         //TODO ahora mismo este método devuelve directamente el destino final
         //PERO DEBERIA ir calculando y devolviendo la siguiente posición por la que 
         // va pasando el taxi hasta llegar al destino
+        Location siguiente;
         int filaActual, columnaActual;
         filaActual = this.getX();
         columnaActual = this.getY();
+        siguiente = new Location(filaActual, columnaActual);
         
         if(filaActual != destination.getX() && columnaActual != destination.getY()){
             if(filaActual < destination.getX()){
@@ -101,8 +103,8 @@ public class Location
                 }
             }
         }
-        destination.setLocation(filaActual, columnaActual);
-        return destination;
+        siguiente.setLocation(filaActual, columnaActual);
+        return siguiente;
     }
 
     /**

@@ -70,6 +70,13 @@ public class LocationTest
         //TODO implementar este método
         // Testear la adyacencia entre dos localizaciones. Se puede hacer 
         // utilizando llamada al método "nextLocation".
-
+        assertEquals(startLocation.nextLocation(new Location(5, 7)).getX(), 2);
+        assertEquals(startLocation.nextLocation(new Location(5, 7)).getY(), 3);
+        
+        assertEquals(startLocation.nextLocation(new Location(1, 7)).getX(), 1);
+        assertEquals(startLocation.nextLocation(new Location(1, 7)).getY(), 3);
+        
+        assertEquals(startLocation.nextLocation(new Location(1, 0)).getX(), 1);
+        assertEquals(startLocation.nextLocation(new Location(1, 0)).getY(), 1);
     }
 }
