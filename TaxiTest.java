@@ -71,15 +71,23 @@ public class TaxiTest
     public void testPickup()
     {
         //TODO implementar este método
+        assertEquals(true, taxi.isFree());
+        taxi.pickup(passenger);
+        assertEquals(false, taxi.isFree());
     }
 
     /**
      * Test that a taxi becomes free again after offloading
      * a passenger.
      */
+    @Test
     public void testOffload()
     {
         //TODO implementar este método
+        taxi.pickup(passenger);
+        assertEquals(false, taxi.isFree());
+        taxi.offloadPassenger();
+        assertEquals(true, taxi.isFree());
     }
 
     /**

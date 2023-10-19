@@ -89,8 +89,8 @@ public class Passenger
     public String showFinalInfo()
     {
         // TO DO
-        return "Passenger "+ getName()+" travelling to " +
-        destination + " in a taxi whose name is " + getNombreTaxi();
+        return "Passenger "+ getName()+" in location " +
+        getDestination().getX() + "," + getDestination().getY() + " transported by: " + getNombreTaxi();
     }
 
 }

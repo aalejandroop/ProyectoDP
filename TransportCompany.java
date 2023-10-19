@@ -11,7 +11,9 @@ public class TransportCompany
 {
     // TODO definir todos sus campos
     private String name;  //nombre de la compañía
-
+    private List<Taxi> vehicles;
+    private List<Passenger> passengers;
+    private List<Passenger> assignments;
     /**
      * Constructor for objects of class TransportCompany
      */
@@ -19,6 +21,9 @@ public class TransportCompany
     {
         this.name = name;
         //TODO implementar el resto del constructor 
+        this.vehicles = new ArrayList<Taxi>();
+        this.passengers = new ArrayList<Passenger>();
+        this.assignments = new ArrayList<Passenger>();
 
     }
 
@@ -48,7 +53,7 @@ public class TransportCompany
     {       
         //TODO implementar el método 
 
-        return null;
+        return this.vehicles;
     }
 
     /**
@@ -58,7 +63,7 @@ public class TransportCompany
     {
         //TODO implementar el método 
 
-        return null;
+        return this.passengers;
     }
 
     /**
@@ -66,7 +71,8 @@ public class TransportCompany
      */
     public void addVehicle(Taxi vehicle)
     {
-        //TODO implementar el método 
+        //TODO implementar el método
+        vehicles.add(vehicle);
     }
 
     /**
@@ -75,7 +81,8 @@ public class TransportCompany
      */
     public void addPassenger(Passenger passenger)
     {
-        //TODO implementar el método 
+        //TODO implementar el método
+        passengers.add(passenger);
 
     }
 
@@ -86,9 +93,25 @@ public class TransportCompany
      */
     private Taxi scheduleVehicle(Location location)
     {
-        //TODO implementar el método 
-
-        return null;
+        //TODO implementar el método
+        boolean enc = false;
+        Taxi t = null;
+        for(int i = 0; i<vehicles.size() && vehicles.get(i).isFree(); i++){
+            vehicles.get(i).setTargetLocation(location);
+            }
+        Collections.sort(vehicles,new ComparadorTaxi());
+        for(int i = 0; i<vehicles.size(); i++){
+            if(vehicles.get(i).isFree()&& !enc){
+                t = vehicles.get(i);
+                enc = true;
+            }
+            else{
+                if(vehicles.get(i).isFree()){
+                    vehicles.get(i).clearTargetLocation();
+                }
+            }
+        }
+        return t;
     }
 
     /**
@@ -99,6 +122,7 @@ public class TransportCompany
     public boolean requestPickup(Passenger passenger)
     {
         //TODO implementar el método 
+        //Taxi t = scheduleVehicle(_location_);
         return true;
     }
 
