@@ -121,10 +121,18 @@ public class TransportCompany
      */
     public boolean requestPickup(Passenger passenger)
     {
-        //TODO implementar el método 
-        //Taxi t = scheduleVehicle(_location_);
-        return true;
-    }
+        //TODO implementar el método
+        Taxi t = null;
+        t.setPickupLocation(passenger.getPickup());
+        t = scheduleVehicle(t.getLocation());
+        if(t == null){
+            return false;
+        }
+            else{
+                assignments.add(passenger);
+            return true;
+        }
+    }   
 
     /**
      * A vehicle has arrived at a pickup point.
@@ -132,11 +140,32 @@ public class TransportCompany
      */
     public void arrivedAtPickup(Taxi taxi)
     {
-        //TODO Obtener el pasajero asignado al taxi y eliminar la asignación correspondiente taxi/pasajero
-        //TODO Descomentar siguiente línea cuando esté el método completamente implementado
+        boolean enc = false;
+        for(int i = 0; i < passengers.size() && !enc; i++){
+            if (taxi.getLocation() == passengers.get(i).getPickup()){
+                enc = true;
+                taxi.pickup(passengers.get(i));
+                assignments.add(passengers.get(i));
+                System.out.println("<<<< "+taxi + " picks up " + passengers.get(i).getName());
+            }
+        }
         //System.out.println("<<<< "+taxi + " picks up " + passenger.getName());
         //TODO el pasajero debe guardar el nombre del taxi que le ha recogido
         //TODO el taxi debe recoger al pasajero
     }
-
+    
+    
+    
+    public void arrivedAtDestination(Taxi taxi)
+    {
+        //TODO Obtener el pasajero asignado al taxi y eliminar la asignación correspondiente taxi/pasajero
+        boolean enc = false;
+        for(int i = 0; i < assignments.size() && !enc; i++){
+            if(taxi.getTargetLocation() == taxi.getLocation() && taxi.getTargetLocation() == assignments.get(i).getDestination()){
+                enc = true;
+                assignments.remove(i);
+                System.out.println("<<<< "+taxi + " picks up " + passengers.get(i).getName());
+            }
+        }
+    }
 }
