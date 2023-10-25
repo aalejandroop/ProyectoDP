@@ -13,7 +13,7 @@ public class TransportCompany
     private String name;  //nombre de la compañía
     private List<Taxi> vehicles;
     private List<Passenger> passengers;
-    private List<Passenger> assignments;
+    private List<Assignment> assignments;
     /**
      * Constructor for objects of class TransportCompany
      */
@@ -23,7 +23,7 @@ public class TransportCompany
         //TODO implementar el resto del constructor 
         this.vehicles = new ArrayList<Taxi>();
         this.passengers = new ArrayList<Passenger>();
-        this.assignments = new ArrayList<Passenger>();
+        this.assignments = new ArrayList<Assignment>();
 
     }
 
@@ -123,13 +123,14 @@ public class TransportCompany
     {
         //TODO implementar el método
         Taxi t = null;
+        t = scheduleVehicle(passenger.getPickup());
         t.setPickupLocation(passenger.getPickup());
-        t = scheduleVehicle(t.getLocation());
         if(t == null){
             return false;
         }
             else{
-                assignments.add(passenger);
+                Assignment a = new Assignment(t, passenger); 
+                assignments.add(a);
             return true;
         }
     }   
@@ -145,7 +146,8 @@ public class TransportCompany
             if (taxi.getLocation() == passengers.get(i).getPickup()){
                 enc = true;
                 taxi.pickup(passengers.get(i));
-                assignments.add(passengers.get(i));
+                Assignment a = new Assignment(taxi, passengers.get(i));
+                assignments.add(a);
                 System.out.println("<<<< "+taxi + " picks up " + passengers.get(i).getName());
             }
         }
@@ -161,7 +163,7 @@ public class TransportCompany
         //TODO Obtener el pasajero asignado al taxi y eliminar la asignación correspondiente taxi/pasajero
         boolean enc = false;
         for(int i = 0; i < assignments.size() && !enc; i++){
-            if(taxi.getTargetLocation() == taxi.getLocation() && taxi.getTargetLocation() == assignments.get(i).getDestination()){
+            if(taxi.getTargetLocation() == taxi.getLocation() && taxi.getTargetLocation() == assignments.get(i).getPassenger().getDestination()){
                 enc = true;
                 assignments.remove(i);
                 System.out.println("<<<< "+taxi + " picks up " + passengers.get(i).getName());

@@ -106,6 +106,10 @@ public class DemoOnePassanger
         System.out.println("-->> Taxis of the company <<--");
 
         //TODO ordenar y mostrar los taxis
+        Collections.sort(actors,new ComparadorTaxi());
+        for (int i = 0; i < actors.size(); i++) {
+            actors.get(i).showFinalInfo();
+        }
 
         //TODO ordenar y mostrar los pasajero/as
         //para ordenar una colección aplicando un comparador, esta sería 
@@ -115,6 +119,12 @@ public class DemoOnePassanger
 
         System.out.println("-->> Passengers requesting taxi <<--");
         System.out.println("-->> ---------------- <<--");
+        
+        Collections.sort(company.getPassengers(), new ComparadorNombrePassenger());
+        for (int i = 0; i < actors.size(); i++) {
+            company.getPassengers().get(i).showFinalInfo();
+        }
+        
 
         System.out.println("-->> Simulation start <<--");
         System.out.println("-->> ---------------- <<--");
@@ -134,9 +144,17 @@ public class DemoOnePassanger
 
         System.out.println("-->> Taxis final information <<--");
         //TODO ordenar y mostrar los taxis
+        Collections.sort(actors,new ComparadorTaxi());
+        for (int i = 0; i < actors.size(); i++) {
+            actors.get(i).showFinalInfo();
+        }
 
         System.out.println("-->> Passengers final information <<--");
         //TODO ordenar y mostrar los pasajero/as
+        Collections.sort(company.getPassengers(), new ComparadorNombrePassenger());
+        for (int i = 0; i < actors.size(); i++) {
+            company.getPassengers().get(i).showFinalInfo();
+        }
 
     }
 }

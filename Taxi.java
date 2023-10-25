@@ -187,7 +187,9 @@ public class Taxi
     public void notifyPassengerArrival(Passenger passenger)
     {
         //TODO  implementar este método
-            company.arrivedAtDestination(this, passenger);
+        if(this.location == passenger.getDestination()){
+            company.arrivedAtDestination(this);
+        }
     }
 
     /**
@@ -252,10 +254,10 @@ public class Taxi
         }
         else{
             setLocation(this.location.nextLocation(getTargetLocation()));
-            if(getLocation() == this.passenger.getPickup()){
+            if(getLocation() == getTargetLocation()){
                 notifyPickupArrival();
             }
-            if(getLocation() == this.passenger.getDestination()){
+            else{
                 notifyPassengerArrival(this.passenger);
                 offloadPassenger();
                 incrementPassengersTransported();
