@@ -37,6 +37,7 @@ public class Taxi
         if(location == null) {
             throw new NullPointerException("location");
         }
+        this.name = name;
         this.company = company;
         this.location = location;
         targetLocation = null;
@@ -151,7 +152,7 @@ public class Taxi
      * Return details of the taxi, such as where it is.
      * @return A string representation of the taxi.
      */
-    public String toString()
+    public String toString()// metodo ShowInitialinfo en passenger igual
     {
         return getClass().getName() + " " +getName()+" at " + getLocation();
     }
@@ -176,9 +177,9 @@ public class Taxi
     public void notifyPickupArrival()
     {
         //TODO  implementar este método
-        if(this.location == this.targetLocation){
+       // if(this.location == this.targetLocation){
             company.arrivedAtPickup(this);
-        }
+        
     }
 
     /**
@@ -187,8 +188,9 @@ public class Taxi
     public void notifyPassengerArrival(Passenger passenger)
     {
         //TODO  implementar este método
-        if(this.location == passenger.getDestination()){
+        if(this.location.equals(passenger.getDestination())){
             company.arrivedAtDestination(this);
+        
         }
     }
 
@@ -201,7 +203,8 @@ public class Taxi
     {
         //TODO  implementar este método
         this.passenger = passenger;
-        this.targetLocation = passenger.getPickup();
+        this.targetLocation = passenger.getDestination();
+        this.passenger.setNombreTaxi(getName());
 
     }
 
@@ -246,29 +249,55 @@ public class Taxi
     /**
      * Carry out a taxi's actions.
      */
-    public void act()
-    {
-        //TODO  implementar este método
-        if(!hasTargetLocation()){
-            incrementIdleCount();
-        }
-        else{
+   /** public void act()
+    *{
+     *   //TODO  implementar este método
+    *    if(!hasTargetLocation()){
+     *       incrementIdleCount();
+    *    }
+     *   else{// Primero comprobar si la location es igual a la target
+     *        // Si es igual 
+     *        //Si no tiene pasajero: notifyPickupArrival()
+      *       //else(si lleva pasajero)
+      *       //notifyPasengerArrival
+    *        setLocation(this.location.nextLocation(getTargetLocation()));
+    *        if(getLocation().equals(getTargetLocation())){
+   *             notifyPickupArrival();
+   *         }
+    *        else{
+   *             notifyPassengerArrival(this.passenger);
+    *            offloadPassenger();
+    *            incrementPassengersTransported();
+    *        }
+   *     }
+   * }
+   * 
+    */
+   public void act(){
+       if(!hasTargetLocation()){
+           incrementIdleCount();
+       }
+       else{
             setLocation(this.location.nextLocation(getTargetLocation()));
-            if(getLocation() == getTargetLocation()){
-                notifyPickupArrival();
+            System.out.println("@@@ Taxi: " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY());
+           if(location.equals(getTargetLocation())){
+               if(this.passenger==null){
+                   notifyPickupArrival();
+               }else{
+                   notifyPassengerArrival(this.passenger);
+                   offloadPassenger();
+                   incrementPassengersTransported();
             }
-            else{
-                notifyPassengerArrival(this.passenger);
-                offloadPassenger();
-                incrementPassengersTransported();
-            }
-        }
-    }
-    
+               
+           }
+           
+       }
+   }
      /**
      * Return details of the taxi, such as where it is.
      * @return A string representation of the taxi.
      */
+
     public String showFinalInfo()
     {
         //TODO  implementar este método
@@ -276,5 +305,4 @@ public class Taxi
                 " - non active for: " + getIdleCount() + " times";
 
     }
-
 }

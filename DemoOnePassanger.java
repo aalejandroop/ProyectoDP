@@ -60,8 +60,13 @@ public class DemoOnePassanger
         actors.clear();
 
         createTaxis();
-        createPassengers(); 
+        createPassengers();
+       
+
         showInicialInfo();
+        
+     
+
         runSimulation();
     }
 
@@ -106,9 +111,9 @@ public class DemoOnePassanger
         System.out.println("-->> Taxis of the company <<--");
 
         //TODO ordenar y mostrar los taxis
-        Collections.sort(actors,new ComparadorTaxi());
-        for (int i = 0; i < actors.size(); i++) {
-            actors.get(i).showFinalInfo();
+        Collections.sort(company.getVehicles(),new ComparadorTaxi());
+        for (int i = 0; i < company.getVehicles().size(); i++) {
+           System.out.println("-->> " + company.getVehicles().get(i).toString());
         }
 
         //TODO ordenar y mostrar los pasajero/as
@@ -122,7 +127,7 @@ public class DemoOnePassanger
         
         Collections.sort(company.getPassengers(), new ComparadorNombrePassenger());
         for (int i = 0; i < actors.size(); i++) {
-            company.getPassengers().get(i).showFinalInfo();
+            System.out.println("-->> " + company.getPassengers().get(i).toString());
         }
         
 
@@ -145,15 +150,15 @@ public class DemoOnePassanger
         System.out.println("-->> Taxis final information <<--");
         //TODO ordenar y mostrar los taxis
         Collections.sort(actors,new ComparadorTaxi());
-        for (int i = 0; i < actors.size(); i++) {
-            actors.get(i).showFinalInfo();
+        for (int i = 0; i < company.getVehicles().size(); i++) {
+            System.out.println(company.getVehicles().get(i).showFinalInfo());
         }
 
         System.out.println("-->> Passengers final information <<--");
         //TODO ordenar y mostrar los pasajero/as
         Collections.sort(company.getPassengers(), new ComparadorNombrePassenger());
         for (int i = 0; i < actors.size(); i++) {
-            company.getPassengers().get(i).showFinalInfo();
+            System.out.println(company.getPassengers().get(i).showFinalInfo());
         }
 
     }
