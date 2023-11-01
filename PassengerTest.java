@@ -86,5 +86,7 @@ public class PassengerTest
     {
         //TODO implementar este método
         // Testear el método que devuelve la dirección de recogida del objeto.
+        assertEquals(pasajero.getPickup().getX(),1);
+        assertEquals(pasajero.getPickup().getY(),2);
     }
 }

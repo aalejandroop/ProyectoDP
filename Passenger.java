@@ -52,7 +52,7 @@ public class Passenger
     {
         return destination;
     }
-    
+
     /**
      * Return details of the passenger, such as where it is.
      * @return A string representation of the passenger.
@@ -62,27 +62,36 @@ public class Passenger
         return "Passenger "+getName()+" travelling from " +
         pickup + " to " + destination;
     }
-    
+
     //TODO Debe poder devolver la posición donde hay que recoger al Passenger.
+    /**
+     * @return the location where the passenger has to be picked up.
+     */
     public Location getPickup()
     {
         return pickup;
     }
-    
+
     //TODO Debe poder devolver la localización donde hay que llevar al Passenger.
 
     //TODO Debe poder modificarse el nombre del taxi usado.
+    /**
+     * Set the name of the taxi assigned with the passenger.
+     */
     public void setNombreTaxi(String nombreTaxi)
     {
         taxiName = nombreTaxi;
     }    
-    
+
     //TODO Debe poder devolver el nombre del taxi usado..
+    /**
+     * @return the name of the taxi the passenger is assigned with.
+     */
     public String getNombreTaxi()
     {
         return taxiName;
     }    
-    
+
     /**
      * Show the final information about the passenger, including the name of the taxi that used.
      */

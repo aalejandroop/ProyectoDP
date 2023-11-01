@@ -45,7 +45,10 @@ public class Location
     {    
         return y;
     }
-    
+
+    /**
+     * Set the new location.
+     */
     public void setLocation(int fila, int columna){
         x = fila;
         y = columna;
@@ -61,14 +64,12 @@ public class Location
     public Location nextLocation(Location destination)
     {
         //TODO ahora mismo este método devuelve directamente el destino final
-        //PERO DEBERIA ir calculando y devolviendo la siguiente posición por la que 
-        // va pasando el taxi hasta llegar al destino
         Location siguiente;
         int filaActual, columnaActual;
         filaActual = this.getX();
         columnaActual = this.getY();
         siguiente = new Location(filaActual, columnaActual);
-        
+
         if(filaActual != destination.getX() && columnaActual != destination.getY()){
             if(filaActual < destination.getX()){
                 filaActual++;
@@ -115,21 +116,25 @@ public class Location
      */
     public int distance(Location destination)
     {   
-        Location l;
-        //TODO implementar este método que devuelve el número total de pasos para alcanzar el destino
-        int i = destination.getX() - this.getX();
-        if (i < 0){
-            i = i * -1;
-        }
-        int j = destination.getY() - this.getY();
-        if (j < 0){
-            j = j * -1;
-        }
-        if (i > j){
-            return i;
+        if(destination != null){ //TODO implementar este método que devuelve el número total de pasos para alcanzar el destino
+            int i = destination.getX() - this.getX();
+
+            if (i < 0){
+                i = i * -1;
+            }
+            int j = destination.getY() - this.getY();
+            if (j < 0){
+                j = j * -1;
+            }
+            if (i > j){
+                return i;
+            }
+            else{
+                return j;   
+            }
         }
         else{
-            return j;   
+            return 0;
         }
     }
 

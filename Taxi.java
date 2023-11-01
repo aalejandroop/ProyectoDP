@@ -18,9 +18,9 @@ public class Taxi
     //name of the taxi
     private String name; //TODO cambiar a private
     //TODO añadir campos necesarios
-    
+
     private Passenger passenger;
-    
+
     private int passengersTransported;
 
     /**
@@ -44,7 +44,7 @@ public class Taxi
         idleCount = 0;
         this.passenger = null;
         passengersTransported = 0;
-        
+
         //TODO resto de inicializaciones pendientes
     }
 
@@ -63,6 +63,14 @@ public class Taxi
     public Location getLocation()
     {
         return location;
+    }
+
+    /**
+     * Get the passenger.
+     * @return the current passenger.
+     */
+    public Passenger getPasajero(){
+        return this.passenger;
     }
 
     /**
@@ -105,7 +113,7 @@ public class Taxi
         }
     }
 
-     /**
+    /**
      * Receive a pickup location. This becomes the
      * target location.
      * @param location The pickup location.
@@ -114,7 +122,7 @@ public class Taxi
     {
         setTargetLocation(location);
     }
-    
+
     /**
      * Has the vehicle a target Location?
      * @return Whether or not this vehicle has a target Location.
@@ -122,7 +130,7 @@ public class Taxi
     public boolean hasTargetLocation(){
         return getTargetLocation() != null;
     }
-    
+
     /**
      * Clear the target location.
      */
@@ -152,7 +160,7 @@ public class Taxi
      * Return details of the taxi, such as where it is.
      * @return A string representation of the taxi.
      */
-    public String toString()// metodo ShowInitialinfo en passenger igual
+    public String toString()
     {
         return getClass().getName() + " " +getName()+" at " + getLocation();
     }
@@ -177,9 +185,8 @@ public class Taxi
     public void notifyPickupArrival()
     {
         //TODO  implementar este método
-       // if(this.location == this.targetLocation){
-            company.arrivedAtPickup(this);
-        
+        company.arrivedAtPickup(this);
+
     }
 
     /**
@@ -190,7 +197,7 @@ public class Taxi
         //TODO  implementar este método
         if(this.location.equals(passenger.getDestination())){
             company.arrivedAtDestination(this);
-        
+
         }
     }
 
@@ -226,7 +233,7 @@ public class Taxi
         //TODO  implementar este método
         return this.passengersTransported;
     }
-    
+
     /**
      * Increment the number of passengers this vehicle has transported.
      */
@@ -249,51 +256,29 @@ public class Taxi
     /**
      * Carry out a taxi's actions.
      */
-   /** public void act()
-    *{
-     *   //TODO  implementar este método
-    *    if(!hasTargetLocation()){
-     *       incrementIdleCount();
-    *    }
-     *   else{// Primero comprobar si la location es igual a la target
-     *        // Si es igual 
-     *        //Si no tiene pasajero: notifyPickupArrival()
-      *       //else(si lleva pasajero)
-      *       //notifyPasengerArrival
-    *        setLocation(this.location.nextLocation(getTargetLocation()));
-    *        if(getLocation().equals(getTargetLocation())){
-   *             notifyPickupArrival();
-   *         }
-    *        else{
-   *             notifyPassengerArrival(this.passenger);
-    *            offloadPassenger();
-    *            incrementPassengersTransported();
-    *        }
-   *     }
-   * }
-   * 
-    */
-   public void act(){
-       if(!hasTargetLocation()){
-           incrementIdleCount();
-       }
-       else{
+
+    public void act(){
+        if(!hasTargetLocation()){
+            incrementIdleCount();
+        }
+        else{
             setLocation(this.location.nextLocation(getTargetLocation()));
             System.out.println("@@@ Taxi: " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY());
-           if(location.equals(getTargetLocation())){
-               if(this.passenger==null){
-                   notifyPickupArrival();
-               }else{
-                   notifyPassengerArrival(this.passenger);
-                   offloadPassenger();
-                   incrementPassengersTransported();
+            if(location.equals(getTargetLocation())){
+                if(this.passenger==null){
+                    notifyPickupArrival();
+                }else{
+                    notifyPassengerArrival(this.passenger);
+                    offloadPassenger();
+                    incrementPassengersTransported();
+                }
+
             }
-               
-           }
-           
-       }
-   }
-     /**
+
+        }
+    }
+
+    /**
      * Return details of the taxi, such as where it is.
      * @return A string representation of the taxi.
      */
@@ -302,7 +287,7 @@ public class Taxi
     {
         //TODO  implementar este método
         return "Taxi " + getName() + " at location " + getLocation().getX() + "," + getLocation().getY() + " - passengers transported: " + passengersTransported() + 
-                " - non active for: " + getIdleCount() + " times";
+        " - non active for: " + getIdleCount() + " times";
 
     }
 }

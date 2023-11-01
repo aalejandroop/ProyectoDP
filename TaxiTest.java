@@ -14,6 +14,8 @@ public class TaxiTest
 {
     private Taxi taxi;
     private Passenger passenger;
+    private Taxi taxi2;
+    private Passenger passenger2;
     //TODO
     //crear más campos (si es necesario) 
     /**
@@ -34,12 +36,17 @@ public class TaxiTest
         TransportCompany company = new TransportCompany("Compañía Taxis Cáceres");
         // Starting position for the taxi.
         Location taxiLocation = new Location(0, 0);
+        Location taxiLocation2 = new Location(2, 2);
         // Locations for the passenger.
-        Location pickup = new Location(1, 2);
-        Location destination = new Location(5, 6);
+        Location pickup = new Location(3, 3);
+        Location destination = new Location(0, 0);
+        Location pickup2 = new Location(6, 6);
+        Location destination2 = new Location(1, 1);
 
         passenger = new Passenger(pickup, destination,"Kevin","");
         taxi = new Taxi(company, taxiLocation,"T1");
+        passenger2 = new Passenger(pickup, destination,"Fernando","");
+        taxi2 = new Taxi(company, taxiLocation,"T2");
         //TODO
         //Completar (si es necesario) este método
     }
@@ -74,6 +81,10 @@ public class TaxiTest
         assertEquals(true, taxi.isFree());
         taxi.pickup(passenger);
         assertEquals(false, taxi.isFree());
+
+        assertEquals(true, taxi2.isFree());
+        taxi2.pickup(passenger2);
+        assertEquals(false, taxi2.isFree());
     }
 
     /**
@@ -88,15 +99,57 @@ public class TaxiTest
         assertEquals(false, taxi.isFree());
         taxi.offloadPassenger();
         assertEquals(true, taxi.isFree());
+
+        taxi2.pickup(passenger2);
+        assertEquals(false, taxi2.isFree());
+        taxi2.offloadPassenger();
+        assertEquals(true, taxi2.isFree());
     }
 
     /**
      * Test that a taxi picks up and delivers a passenger within
      * a reasonable number of steps.
      */
+    @Test
     public void testDelivery()
-    {
+    {        
         //TODO implementar este método
+        int cont = 0;
+        taxi.setTargetLocation(passenger.getPickup());
+        int distancia = taxi.distanceToTheTargetLocation();
+        for (int i = 0; i < distancia; i++){
+            taxi.act();
+            cont++;
+        }
+        assertEquals(3, cont);
+        taxi.pickup(passenger);
+        taxi.setTargetLocation(passenger.getDestination());
+        distancia = taxi.distanceToTheTargetLocation();
+        cont = 0;
+        for (int i = 0; i < distancia; i++){
+            taxi.act();
+            cont++;
+        }
+        assertEquals(3, cont);
+
+        cont = 0;
+
+        taxi2.setTargetLocation(passenger2.getPickup());
+        int distancia2 = taxi2.distanceToTheTargetLocation();
+        for (int i = 0; i < distancia2; i++){
+            taxi2.act();
+            cont++;
+        }
+        assertEquals(4, cont);
+        taxi2.pickup(passenger2);
+        taxi2.setTargetLocation(passenger2.getDestination());
+        distancia2 = taxi2.distanceToTheTargetLocation();
+        cont = 0;
+        for (int i = 0; i < distancia2; i++){
+            taxi2.act();
+            cont++;
+        }
+        assertEquals(4, cont);
     }
 }
 
