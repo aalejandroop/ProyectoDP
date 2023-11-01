@@ -45,8 +45,8 @@ public class TaxiTest
 
         passenger = new Passenger(pickup, destination,"Kevin","");
         taxi = new Taxi(company, taxiLocation,"T1");
-        passenger2 = new Passenger(pickup, destination,"Fernando","");
-        taxi2 = new Taxi(company, taxiLocation,"T2");
+        passenger2 = new Passenger(pickup2, destination2,"Fernando","");
+        taxi2 = new Taxi(company, taxiLocation2,"T2");
         //TODO
         //Completar (si es necesario) este método
     }
@@ -149,7 +149,7 @@ public class TaxiTest
             taxi2.act();
             cont++;
         }
-        assertEquals(4, cont);
+        assertEquals(5, cont);
     }
 }
 
