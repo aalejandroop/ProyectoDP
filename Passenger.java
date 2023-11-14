@@ -12,8 +12,8 @@ public class Passenger
     private Location pickup;
     private Location destination;
     private String taxiName;
-    private int arrivalTime;
-    private int creditCard;
+    protected int arrivalTime;
+    protected int creditCard;
     private Reliable reliable;
     //incluir campo para el nombre del taxi que lo ha transportado
 
@@ -24,7 +24,7 @@ public class Passenger
      * @param name The passenger's name
      * @throws NullPointerException If either location is null.
      */
-    public Passenger(Location pickup, Location destination, String name, String taxiName)
+    public Passenger(Location pickup, Location destination, String name, String taxiName, int arrivalTime, int creditCard /*, Reliable reliable*/)
     {
         //TODO modificar el constructor o crear otro constructor si necesario
         if(pickup == null) {
@@ -37,6 +37,10 @@ public class Passenger
         this.destination = destination;
         this.name = name;
         this.taxiName = taxiName;
+        this.arrivalTime = arrivalTime;
+        this.creditCard = creditCard;
+        //setReliable(reliable);
+        
         //incluir inicialización del campo para el nombre del taxi que lo ha transportado
     }
 
@@ -103,6 +107,19 @@ public class Passenger
         // TO DO
         return "Passenger "+ getName()+" in location " +
         getDestination().getX() + "," + getDestination().getY() + " transported by: " + getNombreTaxi();
+    }
+    
+    public int getArrivalTime(){
+        return this.arrivalTime;
+    }
+    
+    public int getCreditCard(){
+        return this.creditCard;
+    }
+    
+    void act(){
+        //pay();
+        //calculateEvaluationValue();
     }
 
 }
