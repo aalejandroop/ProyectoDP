@@ -12,6 +12,9 @@ public class Passenger
     private Location pickup;
     private Location destination;
     private String taxiName;
+    private int arrivalTime;
+    private int creditCard;
+    private Reliable reliable;
     //incluir campo para el nombre del taxi que lo ha transportado
 
     /**
