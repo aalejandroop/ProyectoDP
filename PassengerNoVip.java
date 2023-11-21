@@ -25,7 +25,7 @@ public class PassengerNoVip extends Passenger
     }
     
     public int calculateEvaluationValue(){
-        return 0; //this.reliable = 2 * this.reliable
+        return 2 * this.reliable.getValor();
     }
 }
 

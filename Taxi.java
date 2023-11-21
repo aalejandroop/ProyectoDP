@@ -1,3 +1,4 @@
+import java.util.*;
 /**
  * Model the common elements of taxis and shuttles.
  * 
@@ -19,7 +20,7 @@ public class Taxi
     private String name; //TODO cambiar a private
     //TODO añadir campos necesarios
 
-    private Passenger passenger;
+    private TreeSet<Passenger> passengers;
 
     private int passengersTransported;
 
@@ -42,7 +43,7 @@ public class Taxi
         this.location = location;
         targetLocation = null;
         idleCount = 0;
-        this.passenger = null;
+        this.passengers = null;
         passengersTransported = 0;
 
         //TODO resto de inicializaciones pendientes

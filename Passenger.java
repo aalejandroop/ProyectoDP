@@ -14,7 +14,7 @@ public class Passenger
     private String taxiName;
     protected int arrivalTime;
     protected int creditCard;
-    private Reliable reliable;
+    protected Reliable reliable;
     //incluir campo para el nombre del taxi que lo ha transportado
 
     /**
@@ -39,7 +39,7 @@ public class Passenger
         this.taxiName = taxiName;
         this.arrivalTime = arrivalTime;
         this.creditCard = creditCard;
-        //setReliable(reliable);
+        setReliable(reliable);
         
         //incluir inicialización del campo para el nombre del taxi que lo ha transportado
     }
@@ -117,9 +117,13 @@ public class Passenger
         return this.creditCard;
     }
     
-    void act(){
+    public void act(){
         //pay();
         //calculateEvaluationValue();
+    }
+    
+    public void setReliable(Reliable reliable){
+        this.reliable = reliable;
     }
 
 }

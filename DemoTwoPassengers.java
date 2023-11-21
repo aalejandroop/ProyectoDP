@@ -1,5 +1,4 @@
 import java.util.*;
-
 /**
  * Provide a simple demonstration of running a stage-one
  * scenario. A single passenger and taxi are created, and a pickup
@@ -10,15 +9,15 @@ import java.util.*;
  * @version 2016.02.29
  * @version 2023 DP Classes
  */
-public class DemoOnePassanger
+public class DemoTwoPassengers
 {
     TransportCompany company;
-    private List<Taxi> actors;
+    private List<Actor> actors;
 
     /**
      * Constructor for objects of class DemoOnePassanger
      */
-    public DemoOnePassanger()
+    public DemoTwoPassengers()
     {
         company = new TransportCompany("Compañía Taxis Cáceres");
         actors = new ArrayList<>();
@@ -44,7 +43,7 @@ public class DemoOnePassanger
      */
     public void step()
     {
-        for(Taxi actor : actors) {
+        for(Actor actor : actors) {
             actor.act();
         }
     }
@@ -60,13 +59,8 @@ public class DemoOnePassanger
         actors.clear();
 
         createTaxis();
-        createPassengers();
-       
-
+        createPassengers(); 
         showInicialInfo();
-        
-     
-
         runSimulation();
     }
 
@@ -74,8 +68,11 @@ public class DemoOnePassanger
      * Taxis are created and added to the company
      */
     private void createTaxis() {
-        Taxi taxi = new Taxi(company, new Location(10, 10),"T1");
+        Taxi taxi = new TaxiExclusive(company, new Location(10, 10),"T1", FuelConsumption.MEDIUM, 7000);
+        Taxi taxi2 = new TaxiShuttle(company, new Location(8,8),"T2", FuelConsumption.LOW, 2);
+
         company.addVehicle(taxi);
+        company.addVehicle(taxi2);
         actors.addAll(company.getVehicles());
     }
 
@@ -83,9 +80,12 @@ public class DemoOnePassanger
      * Passengers are created and added to the company
      */
     private void createPassengers() {
-        Passenger passenger = new Passenger(new Location(6, 6),
-                new Location(5,2),"Lucy","");
-        company.addPassenger(passenger);
+        Passenger passenger = new PassengerVip(new Location(6, 6),
+                new Location(5,2),"Lucy", 30, 30000, Reliable.HIGH);
+        Passenger passenger2 = new PassengerNoVip(new Location(2,3),
+                new Location(3,10),"Gru", 20, 2000, Reliable.LOW);
+        company.addPassenger(passenger);        
+        company.addPassenger(passenger2);
     }
 
     /**
@@ -94,40 +94,34 @@ public class DemoOnePassanger
      */
     private void runSimulation() {
         List<Passenger> passengers = company.getPassengers();
+
         for(Passenger passenger : passengers) {
             if(!company.requestPickup(passenger)) {
                 throw new IllegalStateException("Failed to find a pickup.");        
             }
         }
-
     }
 
     /**
      * Initial info is showed with the information about taxis and passengers
      */
     private void showInicialInfo() {
-
+        List<Taxi> vehicles = company.getVehicles();
+        List<Passenger> passengers = company.getPassengers();
+        Collections.sort(vehicles, new ComparadorNombreTaxi());
+        Collections.sort(passengers, new ComparadorNombrePassenger());
         System.out.println("--->> Simulation of the company: "+company.getName()+" <<---");
         System.out.println("-->> Taxis of the company <<--");
 
-        //TODO ordenar y mostrar los taxis
-        Collections.sort(company.getVehicles(),new ComparadorTaxi());
-        for (int i = 0; i < company.getVehicles().size(); i++) {
-           System.out.println("-->> " + company.getVehicles().get(i).toString());
+        for(Taxi  taxi : vehicles) {
+            System.out.println(taxi);
         }
-
-        //TODO ordenar y mostrar los pasajero/as
-        //para ordenar una colección aplicando un comparador, esta sería 
-        //la sintaxis (suponiendo que "passengers" es una colección donde
-        //la compañía de taxis almacena los pasajero/as):
-
         System.out.println("-->> Passengers requesting taxi <<--");
-        
-        Collections.sort(company.getPassengers(), new ComparadorNombrePassenger());
-        for (int i = 0; i < actors.size(); i++) {
-            System.out.println("-->> " + company.getPassengers().get(i).toString());
+        Collections.sort(passengers, new ComparadorPasHoraLlegada());
+
+        for(Passenger passenger : passengers) {
+            System.out.println(passenger);
         }
-        
         System.out.println("");
         System.out.println("-->> ---------------- <<--");
         System.out.println("-->> Simulation start <<--");
@@ -139,6 +133,10 @@ public class DemoOnePassanger
      * Final info is showed with the information about taxis and passengers
      */
     private void showFinalInfo() {
+        List<Taxi> vehicles = company.getVehicles();
+        List<Passenger> passengers = company.getPassengers();
+        Collections.sort(vehicles, new ComparadorPasTransportadosTaxi());
+        Collections.sort(passengers, new ComparadorNombrePassenger());
 
         System.out.println("");
         System.out.println("-->> ----------------- <<--");
@@ -147,18 +145,16 @@ public class DemoOnePassanger
         System.out.println("");
 
         System.out.println("-->> Taxis final information <<--");
-        //TODO ordenar y mostrar los taxis
-        Collections.sort(company.getVehicles(),new ComparadorPasajerosTaxi());
-        for (int i = 0; i < company.getVehicles().size(); i++) {
-            System.out.println(company.getVehicles().get(i).showFinalInfo());
-        }
 
-        System.out.println("-->> Passengers final information <<--");
-        //TODO ordenar y mostrar los pasajero/as
-        Collections.sort(company.getPassengers(), new ComparadorNombrePassenger());
-        for (int i = 0; i < actors.size(); i++) {
-            System.out.println(company.getPassengers().get(i).showFinalInfo());
+        for(Taxi  taxi : vehicles) {
+            System.out.println(((Taxi)taxi).showFinalInfo());
         }
+        System.out.println("-->> Passengers final information <<--");
+        for(Passenger passenger : passengers) {
+            System.out.println(passenger.showFinalInfo());
+        }
+        //Muestra los Taxis con menos turnos inactivos y Taxis con más valoración
+        company.showFinalInfo();
 
     }
 }
