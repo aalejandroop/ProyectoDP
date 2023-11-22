@@ -19,7 +19,7 @@ public class Taxi
     //name of the taxi
     private String name; //TODO cambiar a private
     //TODO añadir campos necesarios
-    private Set<Passenger> passengers;
+    private TreeSet<Passenger> passengers;
     
     private int passengersTransported;
     
@@ -27,7 +27,7 @@ public class Taxi
     
     private int valuation;
     
-    private int ocupation;
+    private int ocupation;//min 1 max 4
     
     /**
      * Constructor of class Vehicle
@@ -50,6 +50,9 @@ public class Taxi
         idleCount = 0;
         this.passengers = new TreeSet<Passenger>(new ComparadorTaxiPassengerArrivalTime());
         passengersTransported = 0;
+        /*if(ocupation < 1 || ocupation > 4) {
+            throw new ExceptionType("ocupation");
+        }*/
 
         //TODO resto de inicializaciones pendientes
     }
@@ -76,7 +79,7 @@ public class Taxi
      * @return the current passenger.
      */
     public Passenger getPasajero(){
-        return this.passenger;
+        return this.passengers.first();
     }
 
     /**
@@ -178,7 +181,7 @@ public class Taxi
     public boolean isFree()
     {
         //TODO  implementar este método
-        if (passenger == null){
+        if (passengers.size() < ocupation){
             return true;
         }
         else
@@ -215,9 +218,10 @@ public class Taxi
     public void pickup(Passenger passenger)
     {
         //TODO  implementar este método
-        this.passenger = passenger;
+        passenger.setNombreTaxi(this.getName());
+        this.passengers.add(passenger);
         this.targetLocation = passenger.getDestination();
-        this.passenger.setNombreTaxi(getName());
+        
 
     }
 
@@ -227,8 +231,13 @@ public class Taxi
     public void offloadPassenger()
     {
         //TODO  implementar este método
-        this.passenger = null;
-        clearTargetLocation();
+        this.passengers.remove(this.passengers.first());
+        if(this.passengers.size() == 0){
+            clearTargetLocation();    
+        }
+        else{
+            setTargetLocation(this.passengers.first().getDestination());
+        }
     }
 
     /**
@@ -271,7 +280,7 @@ public class Taxi
             setLocation(this.location.nextLocation(getTargetLocation()));
             System.out.println("@@@ Taxi: " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY());
             if(location.equals(getTargetLocation())){
-                if(this.passenger==null){
+                if(this.passenger == null){
                     notifyPickupArrival();
                 }else{
                     notifyPassengerArrival(this.passenger);

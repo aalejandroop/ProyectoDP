@@ -15,7 +15,7 @@ public class ComparadorTaxiPassengerArrivalTime implements Comparator<Passenger>
      */
     public int compare(Passenger p1, Passenger p2){  
         if (p1.getArrivalTime() == p2.getArrivalTime()){
-            return 0;
+            return (p1.getName().compareTo(p2.getName()));
         }
         else{
             if(p1.getArrivalTime() > p2.getArrivalTime()){
