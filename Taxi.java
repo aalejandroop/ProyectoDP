@@ -19,11 +19,16 @@ public class Taxi
     //name of the taxi
     private String name; //TODO cambiar a private
     //TODO añadir campos necesarios
-
-    private TreeSet<Passenger> passengers;
-
+    private Set<Passenger> passengers;
+    
     private int passengersTransported;
-
+    
+    private fuelConsumption fuelComsumption;
+    
+    private int valuation;
+    
+    private int ocupation;
+    
     /**
      * Constructor of class Vehicle
      * @param company The taxi company. Must not be null.
@@ -43,7 +48,7 @@ public class Taxi
         this.location = location;
         targetLocation = null;
         idleCount = 0;
-        this.passengers = null;
+        this.passengers = new TreeSet<Passenger>(new ComparadorTaxiPassengerArrivalTime());
         passengersTransported = 0;
 
         //TODO resto de inicializaciones pendientes

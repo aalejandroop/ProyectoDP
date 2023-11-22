@@ -1,0 +1,40 @@
+
+/**
+ * Enumeration class fuelConsumption - write a description of the enum class here
+ * 
+ * @author (your name here)
+ * @version (version number or date here)
+ */
+public enum fuelConsumption
+{
+    HIGH ("HIGH", 8),
+    MEDIUM( "MEDIUM", 6),
+    LOW ("LOW", 4);
+    
+    
+    private final String gasto;
+    private final int valor;
+    
+    fuelConsumption(String gasto, int valor){
+        this.gasto = gasto;
+        this.valor = valor;
+    }
+    
+    public String getGasto(){
+        return this.gasto;
+    }
+    
+    public int getValor(){
+        return this.valor;
+    }
+    
+    /*public void setValor(int valor){
+        this.valor = valor;
+    }*/
+    
+    @Override
+    public String toString(){
+        return "";
+    }
+    
+}

@@ -24,7 +24,8 @@ public class PassengerVip extends Passenger
         this.creditCard = this.creditCard - 610;
     }
     
+    @Override
     public int calculateEvaluationValue(){
-        return 2 * this.reliable.getValor() + 15;
+        return super.calculateEvaluationValue() + 15;
     }
 }

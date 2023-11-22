@@ -6,7 +6,7 @@
  * @version 2016.02.29
  * @version 2023.10.10 DP classes 
  */
-public class Passenger
+public abstract class Passenger
 {
     private String name;
     private Location pickup;
@@ -118,8 +118,14 @@ public class Passenger
     }
     
     public void act(){
-        //pay();
-        //calculateEvaluationValue();
+        pay();
+        calculateEvaluationValue();
+    }
+    
+    public abstract void pay();
+    
+    public int calculateEvaluationValue(){
+        return this.reliable.getValor() * 2;
     }
     
     public void setReliable(Reliable reliable){

@@ -90,7 +90,7 @@ public class TransportCompany
      * @param location location to go
      * @return A free vehicle, or null if there is none.
      */
-    private Taxi scheduleVehicle(Location location)
+    /*private Taxi scheduleVehicle(Location location)
     {
         //TODO implementar el método
         boolean enc = false;
@@ -116,6 +116,7 @@ public class TransportCompany
         }
         return t;
     }
+    */
 
     /**
      * Request a pickup for the given passenger.
@@ -164,7 +165,7 @@ public class TransportCompany
     /**
      * When arrived at destination, offloads the current passenger and unasigns them.
      */
-    public void arrivedAtDestination(Taxi taxi)
+    /*public void arrivedAtDestination(Taxi taxi)
     {
         if(taxi.getLocation().equals(taxi.getPasajero().getDestination())){
             System.out.println(">>>> "+ taxi + " offloads " + taxi.getPasajero().getName() + " travelling from " 
@@ -173,4 +174,5 @@ public class TransportCompany
         }
 
     }
+    */
 }

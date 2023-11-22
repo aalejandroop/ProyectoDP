@@ -19,13 +19,13 @@ public class PassengerNoVip extends Passenger
         */
         super(pickup,destination,name,taxiName, arrivalTime, creditCard);
     }
-    
     public void pay(){
         this.creditCard = this.creditCard - 30;
     }
     
+    @Override
     public int calculateEvaluationValue(){
-        return 2 * this.reliable.getValor();
+        return super.calculateEvaluationValue();
     }
 }
 
