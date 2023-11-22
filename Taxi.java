@@ -6,7 +6,7 @@ import java.util.*;
  * @version 2016.02.29
  * @version 2023.10.10 DP classes 
  */
-public class Taxi
+public abstract class Taxi
 {
     // The Taxi Company of this Taxi.
     private TransportCompany company;   //TODO cambiar a private
@@ -29,6 +29,8 @@ public class Taxi
     
     private int ocupation;//min 1 max 4
     
+    private Location initialLocation;
+    
     /**
      * Constructor of class Vehicle
      * @param company The taxi company. Must not be null.
@@ -46,7 +48,8 @@ public class Taxi
         this.name = name;
         this.company = company;
         this.location = location;
-        targetLocation = null;
+        this.targetLocation = null;
+        this.initialLocation = location;
         idleCount = 0;
         this.passengers = new TreeSet<Passenger>(new ComparadorTaxiPassengerArrivalTime());
         passengersTransported = 0;
@@ -72,6 +75,10 @@ public class Taxi
     public Location getLocation()
     {
         return location;
+    }
+    
+    public Location getInitialLocation(){
+        return this.initialLocation;
     }
 
     /**
@@ -297,7 +304,9 @@ public class Taxi
      * Return details of the taxi, such as where it is.
      * @return A string representation of the taxi.
      */
-
+    
+    public abstract int obtainComsumption();
+    
     public String showFinalInfo()
     {
         //TODO  implementar este método
