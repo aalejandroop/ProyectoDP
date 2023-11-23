@@ -22,4 +22,9 @@ public class TaxiExclusive extends Taxi
     public int obtainComsumption(){
         int distancia = getLocation().distance(getInitialLocation());
     }
+    
+    @Override
+    public void act(){
+        super.act();
+    }
 }

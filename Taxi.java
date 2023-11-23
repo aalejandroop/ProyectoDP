@@ -287,12 +287,21 @@ public abstract class Taxi
             setLocation(this.location.nextLocation(getTargetLocation()));
             System.out.println("@@@ Taxi: " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY());
             if(location.equals(getTargetLocation())){
-                if(this.passenger == null){
+                if(this.passengers.size() == 0){
                     notifyPickupArrival();
-                }else{
-                    notifyPassengerArrival(this.passenger);
-                    offloadPassenger();
-                    incrementPassengersTransported();
+                }
+                else{
+                    if(location.equals(this.passengers.first().getDestination())){
+                        //aumenta/disminuye popularidad (Taxi Exclusive)
+                        notifyPassengerArrival(this.passengers.first());
+                        offloadPassenger();
+                        incrementPassengersTransported();    
+                    }
+                    else{
+                        if(this.passengers.size() < ocupation){
+                            notifyPickupArrival();  
+                        }
+                    }
                 }
 
             }
