@@ -19,11 +19,11 @@ public abstract class Taxi
     //name of the taxi
     private String name; //TODO cambiar a private
     //TODO añadir campos necesarios
-    private TreeSet<Passenger> passengers;
+    protected TreeSet<Passenger> passengers;
     
     private int passengersTransported;
     
-    private fuelConsumption fuelComsumption;
+    protected fuelConsumption fuelComsumption;
     
     private int valuation;
     
@@ -37,7 +37,7 @@ public abstract class Taxi
      * @param location The vehicle's starting point. Must not be null.
      * @throws NullPointerException If company or location is null.
      */
-    public Taxi(TransportCompany company, Location location, String name)
+    public Taxi(TransportCompany company, Location location, String name, int ocupation)
     {
         if(company == null) {
             throw new NullPointerException("company");
@@ -56,6 +56,11 @@ public abstract class Taxi
         /*if(ocupation < 1 || ocupation > 4) {
             throw new ExceptionType("ocupation");
         }*/
+        
+        this.ocupation= ocupation;
+        if(ocupation == 0){
+            this.ocupation =1;
+        }
 
         //TODO resto de inicializaciones pendientes
     }
@@ -279,35 +284,7 @@ public abstract class Taxi
      * Carry out a taxi's actions.
      */
 
-    public void act(){
-        if(!hasTargetLocation()){
-            incrementIdleCount();
-        }
-        else{
-            setLocation(this.location.nextLocation(getTargetLocation()));
-            System.out.println("@@@ Taxi: " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY());
-            if(location.equals(getTargetLocation())){
-                if(this.passengers.size() == 0){
-                    notifyPickupArrival();
-                }
-                else{
-                    if(location.equals(this.passengers.first().getDestination())){
-                        //aumenta/disminuye popularidad (Taxi Exclusive)
-                        notifyPassengerArrival(this.passengers.first());
-                        offloadPassenger();
-                        incrementPassengersTransported();    
-                    }
-                    else{
-                        if(this.passengers.size() < ocupation){
-                            notifyPickupArrival();  
-                        }
-                    }
-                }
-
-            }
-
-        }
-    }
+    public abstract void act();
 
     /**
      * Return details of the taxi, such as where it is.
