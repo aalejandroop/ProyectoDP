@@ -92,13 +92,13 @@ public class TransportCompany
      * @param location location to go
      * @return A free vehicle, or null if there is none.
      */
-    /*private Taxi scheduleVehicle(Location location)
+    /*public Taxi scheduleVehicle(Location location)
     {
         //TODO implementar el método
         boolean enc = false;
         Taxi t = null;
         for(int i = 0; i<vehicles.size(); i++){
-            if(vehicles.get(i).getTargetLocation()==null&& vehicles.get(i).isFree()&&!assignments.contains(vehicles.get(i))){
+            if(vehicles.get(i).getTargetLocation()==null&& vehicles.get(i).isFree()&&!assignments.containsKey(getVehicles().get(i))){
                 vehicles.get(i).setTargetLocation(location);
             }
         }
@@ -119,6 +119,46 @@ public class TransportCompany
         return t;
     }
     */
+   
+    public Taxi scheduleVehicle(Passenger passenger){
+        Taxi t = null;
+        boolean enc = false;
+        
+        for(int i = 0; i<vehicles.size(); i++){
+            if(vehicles.get(i).getTargetLocation()==null&& vehicles.get(i).isFree()&&!assignments.containsKey(getVehicles().get(i))){
+                vehicles.get(i).setTargetLocation(passenger.getPickup());
+            }
+        }
+        Collections.sort(vehicles,new ComparadorTaxi());
+        
+        for(int i = 0; i < vehicles.size(); i++){
+            if(passenger.getCreditCard() > 20000){
+                if(vehicles.get(i).getTargetLocation()==null&& vehicles.get(i).isFree() && !assignments.containsKey(getVehicles().get(i)) && vehicles.get(i).getOcupation() == 1 && !enc)  {
+                    enc = true;
+                    t = vehicles.get(i);    
+                }
+            }
+            else{
+                if(vehicles.get(i).getTargetLocation()==null&& vehicles.get(i).isFree() && !assignments.containsKey(getVehicles().get(i)) && !enc)  {
+                    enc = true;
+                    t = vehicles.get(i);    
+                }
+                else{
+                    if(vehicles.get(i).isFree()&&vehicles.get(i).getTargetLocation()!=null&& vehicles.get(i).getTargetLocation().equals(passenger.getPickup())){
+                        vehicles.get(i).clearTargetLocation();
+                    }    
+                }
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
+        return t;
+    }
 
     /**
      * Request a pickup for the given passenger.
@@ -129,14 +169,15 @@ public class TransportCompany
     {
         //TODO implementar el método
         Taxi t = null;
-        t = scheduleVehicle(passenger.getPickup());
+        t = scheduleVehicle(passenger);
 
         if(t == null){
             return false;
         }
         else{
             t.setTargetLocation(passenger.getPickup());
-            assignments.add(new Assignment(t, passenger));
+            //assignments.add(new Assignment(t, passenger));
+            assignments.put(t, passenger);
             System.out.println("<<<< Taxi " + t.getName() + " at " + t.getLocation() + " go to pickup passenger " + passenger.getName() +
                 " at " + passenger.getPickup());
 
@@ -153,10 +194,10 @@ public class TransportCompany
         boolean enc = false;
 
         for(int i = 0; i < assignments.size() && !enc; i++){
-            if (taxi.getLocation().equals( assignments.get(i).getPassenger().getPickup())){
+            if (taxi.getLocation().equals((assignments.get(i).getPickup()))){
                 enc = true;
-                taxi.pickup(assignments.get(i).getPassenger());
-                System.out.println("<<<< "+taxi + " picks up " + assignments.get(i).getPassenger().getName());
+                taxi.pickup(assignments.get(i));
+                System.out.println("<<<< "+taxi + " picks up " + (assignments.get(i).getName()));
                 assignments.remove(i);
             }
         }
@@ -167,14 +208,18 @@ public class TransportCompany
     /**
      * When arrived at destination, offloads the current passenger and unasigns them.
      */
-    /*public void arrivedAtDestination(Taxi taxi)
-    {
+    public void arrivedAtDestination(Taxi taxi)
+    {  
         if(taxi.getLocation().equals(taxi.getPasajero().getDestination())){
             System.out.println(">>>> "+ taxi + " offloads " + taxi.getPasajero().getName() + " travelling from " 
                 + taxi.getPasajero().getPickup() + " to " + taxi.getPasajero().getDestination());
-            taxi.offloadPassenger();                        
+            taxi.getPasajero().act();
+            taxi.offloadPassenger();
+            if(taxi.getPasajeros().size() > 0){
+                taxi.setTargetLocation(taxi.getPasajero().getDestination());
+            }
         }
 
     }
-    */
+    
 }

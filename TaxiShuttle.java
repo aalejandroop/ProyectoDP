@@ -11,7 +11,7 @@ public class TaxiShuttle extends Taxi
     /**
      * Constructor for objects of class TaxiShuttle
      */
-    public TaxiShuttle(TransportCompany company, Location location, String name, fuelConsumption fuelComsumption, int ocupation)
+    public TaxiShuttle(TransportCompany company, Location location, String name, FuelConsumption fuelComsumption, int ocupation)
     {
         //TODO resto de inicializaciones pendientes
         super(company, location, name, fuelComsumption);
@@ -33,7 +33,7 @@ public class TaxiShuttle extends Taxi
     public int obtainComsumption(){
         int distancia = getLocation().distance(getInitialLocation());
         int consumo;
-        consumo = super.fuelComsumption.getValor() * distancia;
+        consumo = super.fuelConsumption.getValor() * distancia;
         return consumo;
     }
     

@@ -5,7 +5,7 @@ import java.util.*;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class ComparadorTaxiPassengerArrivalTime implements Comparator<Passenger>
+public class ComparadorPasHoraLlegada implements Comparator<Passenger>
 {
     /**
      * Compares p1 and p2 in lexicographic order.

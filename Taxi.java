@@ -51,7 +51,7 @@ public abstract class Taxi
         this.targetLocation = null;
         this.initialLocation = location;
         idleCount = 0;
-        this.passengers = new TreeSet<Passenger>(new ComparadorTaxiPassengerArrivalTime());
+        this.passengers = new TreeSet<Passenger>(new ComparadorPasHoraLlegada());
         passengersTransported = 0;
         this.ocupation = 1;
         this.fuelConsumption = fuelConsumption;
@@ -86,6 +86,10 @@ public abstract class Taxi
      */
     public Passenger getPasajero(){
         return this.passengers.first();
+    }
+    
+    public TreeSet<Passenger> getPasajeros(){
+        return passengers;
     }
 
     /**
@@ -286,6 +290,10 @@ public abstract class Taxi
      */
     
     public abstract int obtainComsumption();
+    
+    public int getOcupation(){
+        return this.ocupation;
+    }
     
     public String showFinalInfo()
     {
