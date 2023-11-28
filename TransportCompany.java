@@ -14,7 +14,7 @@ public class TransportCompany
     private List<Taxi> vehicles;
     private List<Passenger> passengers;
     //private List<Assignment> assignments;
-    private Map<Taxi, Passenger> assignments;
+    private Map<Taxi, TreeSet<Passenger>> assignments;
     /**
      * Constructor for objects of class TransportCompany
      */
@@ -133,13 +133,18 @@ public class TransportCompany
         
         for(int i = 0; i < vehicles.size(); i++){
             if(passenger.getCreditCard() > 20000){
-                if(vehicles.get(i).getTargetLocation()==null&& vehicles.get(i).isFree() && !assignments.containsKey(getVehicles().get(i)) && vehicles.get(i).getOcupation() == 1 && !enc)  {
+                if(vehicles.get(i).getTargetLocation()!=null&& vehicles.get(i).isFree() && !assignments.containsKey(getVehicles().get(i)) && vehicles.get(i).getOcupation() == 1 && !enc)  {
                     enc = true;
                     t = vehicles.get(i);    
                 }
+                else{
+                    if(vehicles.get(i).isFree()&&vehicles.get(i).getTargetLocation()!=null&& vehicles.get(i).getTargetLocation().equals(passenger.getPickup())){
+                        vehicles.get(i).clearTargetLocation();
+                    }    
+                }
             }
             else{
-                if(vehicles.get(i).getTargetLocation()==null&& vehicles.get(i).isFree() && !assignments.containsKey(getVehicles().get(i)) && !enc)  {
+                if(vehicles.get(i).getTargetLocation()!=null&& vehicles.get(i).isFree() && !assignments.containsKey(getVehicles().get(i)) && !enc)  {
                     enc = true;
                     t = vehicles.get(i);    
                 }
