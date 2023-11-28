@@ -1,4 +1,3 @@
-
 /**
  * Write a description of class TaxiExclusive here.
  * 
@@ -12,21 +11,21 @@ public class TaxiExclusive extends Taxi
     /**
      * Constructor for objects of class TaxiExclusive
      */
-    public TaxiExclusive(TransportCompany company, Location location, String name, int ocupation, int weight)
+    public TaxiExclusive(TransportCompany company, Location location, String name, FuelConsumption fuelConsumption, int weight)
     {
         //TODO resto de inicializaciones pendientes
-        super(company, location, name, ocupation);
+        super(company, location, name, fuelConsumption);
         this.weight = weight;
     }
-    
+
     @Override
     public int obtainComsumption(){
         int distancia = getLocation().distance(getInitialLocation());
         int consumo;
-        consumo = this.weight * super.fuelComsumption.getValor() * distancia;
+        consumo = this.weight * super.fuelConsumption.getValor() * distancia;
         return consumo;
     }
-    
+
     @Override
     public void act(){
         if(!hasTargetLocation()){
@@ -40,24 +39,18 @@ public class TaxiExclusive extends Taxi
                     notifyPickupArrival();
                 }
                 else{
-                    if(super.getLocation().equals(this.passengers.first().getDestination())){
-                        serPopularEnRedes();//aumenta/disminuye popularidad (Taxi Exclusive)
-                        notifyPassengerArrival(this.passengers.first());
-                        offloadPassenger();
-                        incrementPassengersTransported();
-                    }
-                    else{
-                        if(this.passengers.size() < ocupation){
-                            notifyPickupArrival();
-                        }
-                    }
+                    serPopularEnRedes();//aumenta/disminuye popularidad (Taxi Exclusive)
+                    notifyPassengerArrival(this.passengers.first());
+                    offloadPassenger();
+                    incrementPassengersTransported();
                 }
-
             }
 
         }
+
     }
-    public void serPopularEnRedes(){
+
+    private void serPopularEnRedes(){
         if(super.getPasajero().getCreditCard()>2000){
             this.popularidad=this.popularidad +4;
         }

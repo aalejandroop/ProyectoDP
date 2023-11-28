@@ -5,7 +5,7 @@
  * @author (your name here)
  * @version (version number or date here)
  */
-public enum fuelConsumption
+public enum FuelConsumption
 {
     HIGH ("HIGH", 8),
     MEDIUM( "MEDIUM", 6),
@@ -15,7 +15,7 @@ public enum fuelConsumption
     private final String gasto;
     private final int valor;
     
-    fuelConsumption(String gasto, int valor){
+    FuelConsumption(String gasto, int valor){
         this.gasto = gasto;
         this.valor = valor;
     }

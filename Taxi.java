@@ -23,11 +23,11 @@ public abstract class Taxi
     
     private int passengersTransported;
     
-    protected fuelConsumption fuelComsumption;
+    protected FuelConsumption fuelConsumption;
     
     private int valuation;
     
-    private int ocupation;//min 1 max 4
+    protected int ocupation;//min 1 max 4
     
     private Location initialLocation;
     
@@ -37,7 +37,7 @@ public abstract class Taxi
      * @param location The vehicle's starting point. Must not be null.
      * @throws NullPointerException If company or location is null.
      */
-    public Taxi(TransportCompany company, Location location, String name, int ocupation)
+    public Taxi(TransportCompany company, Location location, String name, FuelConsumption fuelConsumption)
     {
         if(company == null) {
             throw new NullPointerException("company");
@@ -53,17 +53,11 @@ public abstract class Taxi
         idleCount = 0;
         this.passengers = new TreeSet<Passenger>(new ComparadorTaxiPassengerArrivalTime());
         passengersTransported = 0;
-        /*if(ocupation < 1 || ocupation > 4) {
-            throw new ExceptionType("ocupation");
-        }*/
-        
-        this.ocupation= ocupation;
-        if(ocupation == 0){
-            this.ocupation =1;
+        this.ocupation = 1;
+        this.fuelConsumption = fuelConsumption;
         }
 
         //TODO resto de inicializaciones pendientes
-    }
 
     /**
      * @return the name of the taxi

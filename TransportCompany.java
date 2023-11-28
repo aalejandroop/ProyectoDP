@@ -13,7 +13,8 @@ public class TransportCompany
     private String name;  //nombre de la compañía
     private List<Taxi> vehicles;
     private List<Passenger> passengers;
-    private List<Assignment> assignments;
+    //private List<Assignment> assignments;
+    private Map<Taxi, Passenger> assignments;
     /**
      * Constructor for objects of class TransportCompany
      */
@@ -23,7 +24,8 @@ public class TransportCompany
         //TODO implementar el resto del constructor 
         this.vehicles = new ArrayList<Taxi>();
         this.passengers = new ArrayList<Passenger>();
-        this.assignments = new ArrayList<Assignment>();
+        //this.assignments = new ArrayList<Assignment>();
+        this.assignments = new HashMap<>();
 
     }
 

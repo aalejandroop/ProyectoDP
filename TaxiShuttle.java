@@ -8,26 +8,62 @@
 public class TaxiShuttle extends Taxi
 {
     // instance variables - replace the example below with your own
-    private int x;
-
     /**
      * Constructor for objects of class TaxiShuttle
      */
-    public TaxiShuttle()
+    public TaxiShuttle(TransportCompany company, Location location, String name, fuelConsumption fuelComsumption, int ocupation)
     {
-        // initialise instance variables
-        x = 0;
-    }
+        //TODO resto de inicializaciones pendientes
+        super(company, location, name, fuelComsumption);
+        if (ocupation<1){
+            ocupation = 1;
+        }
+        else{
+            if (ocupation > 4){
+                ocupation = 4;
+            }
+            else{
+                this.ocupation = ocupation;
+            }
+        }
 
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    }
+    
+    @Override
+    public int obtainComsumption(){
+        int distancia = getLocation().distance(getInitialLocation());
+        int consumo;
+        consumo = super.fuelComsumption.getValor() * distancia;
+        return consumo;
+    }
+    
+    @Override
+    public void act(){
+        if(!hasTargetLocation()){
+            incrementIdleCount();
+        }
+        else{
+            setLocation(super.getLocation().nextLocation(getTargetLocation()));
+            System.out.println("@@@ Taxi: " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY());
+            if(super.getLocation().equals(getTargetLocation())){
+                if(this.passengers.size() == 0){
+                    notifyPickupArrival();
+                }
+                else{
+                    if(super.getLocation().equals(this.passengers.first().getDestination())){
+                        notifyPassengerArrival(this.passengers.first());
+                        offloadPassenger();
+                        incrementPassengersTransported();
+                    }
+                    /*else{
+                        if(this.passengers.size() < ocupation){
+                            notifyPickupArrival();
+                        }
+                    }*/
+                }
+
+            }
+
+        }
     }
 }
