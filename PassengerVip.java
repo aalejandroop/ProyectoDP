@@ -7,9 +7,9 @@
  */
 public class PassengerVip extends Passenger
 {
-    public PassengerVip(Location pickup, Location destination, String name, String taxiName, int arrivalTime, int creditCard, Reliable reliable)
+    public PassengerVip(Location pickup, Location destination, String name, int arrivalTime, int creditCard, Reliable reliable)
     {
-        super(pickup,destination,name,taxiName, arrivalTime, creditCard, reliable);
+        super(pickup,destination,name, arrivalTime, creditCard, reliable);
     }
     
     public void pay(){

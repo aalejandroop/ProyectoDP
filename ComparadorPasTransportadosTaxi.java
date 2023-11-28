@@ -6,7 +6,7 @@ import java.util.*;
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class ComparadorPasajerosTaxi implements Comparator<Taxi>
+public class ComparadorPasTransportadosTaxi implements Comparator<Taxi>
 {
     /**
      * Compares the total of transported passengers for taxis, if equal compares by name in ascending order

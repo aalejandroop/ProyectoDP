@@ -150,13 +150,6 @@ public class TransportCompany
                 }
             }
         }
-        
-        
-        
-        
-        
-        
-        
         return t;
     }
 
@@ -222,4 +215,7 @@ public class TransportCompany
 
     }
     
+    public void showFinalInfo(){
+        System.out.println("");
+    }
 }

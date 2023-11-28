@@ -6,7 +6,7 @@ import java.util.*;
  * @version 2016.02.29
  * @version 2023.10.10 DP classes 
  */
-public abstract class Taxi
+public abstract class Taxi implements Actor
 {
     // The Taxi Company of this Taxi.
     private TransportCompany company;   //TODO cambiar a private
