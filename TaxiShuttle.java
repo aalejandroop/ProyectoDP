@@ -23,7 +23,7 @@ public class TaxiShuttle extends Taxi
                 ocupation = 4;
             }
             else{
-                this.ocupation = ocupation;
+                this.occupation = ocupation;
             }
         }
 

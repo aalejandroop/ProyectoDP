@@ -133,7 +133,7 @@ public class TransportCompany
         
         for(int i = 0; i < vehicles.size(); i++){
             if(passenger.getCreditCard() > 20000){
-                if(vehicles.get(i).getTargetLocation()!=null&& vehicles.get(i).isFree() && !assignments.containsKey(getVehicles().get(i)) && vehicles.get(i).getOcupation() == 1 && !enc)  {
+                if(vehicles.get(i).getTargetLocation()!=null&& vehicles.get(i).isFree() && !assignments.containsKey(getVehicles().get(i)) && vehicles.get(i).getOccupation() == 1 && !enc)  {
                     enc = true;
                     t = vehicles.get(i);    
                 }
@@ -186,8 +186,7 @@ public class TransportCompany
                 assignments.put(t, pasajeros);
                 t.setTargetLocation(assignments.get(t).first().getPickup());
             }
-            System.out.println("<<<< Taxi " + t.getName() + " at " + t.getLocation() + " go to pickup passenger " + passenger.getName() +
-                " at " + passenger.getPickup());
+            System.out.println(t + " go to pick up passenger " + passenger.getName() + " at " + passenger.getPickup());
             return true;
             
         }

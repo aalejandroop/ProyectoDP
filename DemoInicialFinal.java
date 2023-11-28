@@ -119,7 +119,7 @@ public class DemoInicialFinal
         System.out.println("-->> Taxis of the company <<--");
 
         for(Taxi  taxi : vehicles) {
-            System.out.println(taxi);
+            System.out.println(taxi + " <fuel consumption: " + taxi.getFuelConsumption().getGasto() + " (value: " + taxi.getFuelConsumption().getValor() + ")>");
         }
         System.out.println("-->> Passengers requesting taxi <<--");
         for(Passenger passenger : passengers) {

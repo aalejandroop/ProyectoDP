@@ -66,7 +66,7 @@ public abstract class Passenger
     public String toString()
     {
         return "Passenger "+getName()+" travelling from " +
-        pickup + " to " + destination;
+        pickup + " to " + destination + " arrival time: " + arrivalTime + " money in the credit card: " + creditCard + " " + reliable;
     }
 
     //TODO Debe poder devolver la posición donde hay que recoger al Passenger.

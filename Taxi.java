@@ -27,7 +27,7 @@ public abstract class Taxi implements Actor
     
     private int valuation;
     
-    protected int ocupation;//min 1 max 4
+    protected int occupation;//min 1 max 4
     
     private Location initialLocation;
     
@@ -53,7 +53,7 @@ public abstract class Taxi implements Actor
         idleCount = 0;
         this.passengers = new TreeSet<Passenger>(new ComparadorPasHoraLlegada());
         passengersTransported = 0;
-        this.ocupation = 1;
+        this.occupation = 1;
         this.fuelConsumption = fuelConsumption;
         }
 
@@ -181,7 +181,7 @@ public abstract class Taxi implements Actor
      */
     public String toString()
     {
-        return getClass().getName() + " " +getName()+" at " + getLocation();
+        return getClass().getName() + " " +getName()+" at " + getLocation() + " occupation " + occupation;
     }
 
     /**
@@ -191,7 +191,7 @@ public abstract class Taxi implements Actor
     public boolean isFree()
     {
         //TODO  implementar este método
-        if (passengers.size() < ocupation){
+        if (passengers.size() < occupation){
             return true;
         }
         else
@@ -291,8 +291,12 @@ public abstract class Taxi implements Actor
     
     public abstract int obtainComsumption();
     
-    public int getOcupation(){
-        return this.ocupation;
+    public int getOccupation(){
+        return this.occupation;
+    }
+    
+    public FuelConsumption getFuelConsumption(){
+        return fuelConsumption;
     }
     
     public String showFinalInfo()

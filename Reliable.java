@@ -32,7 +32,7 @@ public enum Reliable
     
     @Override
     public String toString(){
-        return "";
+        return "<reliable: " + fiabilidad + " (value: " + valor + ")>";
     }
     
 }
