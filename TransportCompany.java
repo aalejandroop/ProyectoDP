@@ -237,7 +237,6 @@ public class TransportCompany
             System.out.println(">>>> "+ taxi + " offloads " + taxi.getPasajero().getName() + " travelling from " 
                 + taxi.getPasajero().getPickup() + " to " + taxi.getPasajero().getDestination());
             taxi.getPasajero().act();
-            taxi.offloadPassenger();
             if(taxi.getPasajeros().size() > 0){
                 taxi.setTargetLocation(taxi.getPasajero().getDestination());
             }

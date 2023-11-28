@@ -51,7 +51,7 @@ public class TaxiExclusive extends Taxi
     }
 
     private void serPopularEnRedes(){
-        if(super.getPasajero().getCreditCard()>2000){
+        if(super.getPasajero().getCreditCard()>20000){
             this.popularidad=this.popularidad +4;
         }
         else{
