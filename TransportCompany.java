@@ -168,19 +168,39 @@ public class TransportCompany
         //TODO implementar el método
         Taxi t = null;
         t = scheduleVehicle(passenger);
+        TreeSet<Passenger> pasajeros = new TreeSet<Passenger>(new ComparadorPasHoraLlegada());
 
         if(t == null){
             return false;
         }
         else{
-            t.setTargetLocation(passenger.getPickup());
+            if(assignments.containsKey(t)){
+                pasajeros = assignments.get(t);
+                assignments.remove(t);
+                pasajeros.add(passenger);
+                assignments.put(t, pasajeros);
+                t.setTargetLocation(assignments.get(t).first().getPickup());
+            }
+            else{
+                pasajeros.add(passenger);
+                assignments.put(t, pasajeros);
+                t.setTargetLocation(assignments.get(t).first().getPickup());
+            }
+            System.out.println("<<<< Taxi " + t.getName() + " at " + t.getLocation() + " go to pickup passenger " + passenger.getName() +
+                " at " + passenger.getPickup());
+            return true;
+            
+        }
+            
+            
+            /*t.setTargetLocation(passenger.getPickup());
             //assignments.add(new Assignment(t, passenger));
-            assignments.put(t, passenger);
+            assignments.put(t, );
             System.out.println("<<<< Taxi " + t.getName() + " at " + t.getLocation() + " go to pickup passenger " + passenger.getName() +
                 " at " + passenger.getPickup());
 
             return true;
-        }
+            */
     }   
 
     /**
@@ -189,19 +209,24 @@ public class TransportCompany
      */
     public void arrivedAtPickup(Taxi taxi)
     {
-        boolean enc = false;
-
-        for(int i = 0; i < assignments.size() && !enc; i++){
-            if (taxi.getLocation().equals((assignments.get(i).getPickup()))){
-                enc = true;
-                taxi.pickup(assignments.get(i));
-                System.out.println("<<<< "+taxi + " picks up " + (assignments.get(i).getName()));
-                assignments.remove(i);
+            TreeSet<Passenger> pasajeros = new TreeSet<Passenger>(new ComparadorPasHoraLlegada());
+            if (taxi.getLocation().equals((assignments.get(taxi).first().getPickup()))){
+                taxi.pickup(assignments.get(taxi).first());
+                System.out.println("<<<< "+taxi + " picks up " + (assignments.get(taxi).first().getName()));
+                if (assignments.get(taxi).size() > 1){
+                    pasajeros = assignments.get(taxi);
+                    pasajeros.remove(pasajeros.first());
+                    assignments.remove(taxi);
+                    assignments.put(taxi, pasajeros);
+                }
+                else{
+                    assignments.remove(taxi);
+                }
+                
             }
         }
         //TODO el pasajero debe guardar el nombre del taxi que le ha recogido
         //TODO el taxi debe recoger al pasajero
-    }
 
     /**
      * When arrived at destination, offloads the current passenger and unasigns them.
