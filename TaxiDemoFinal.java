@@ -42,8 +42,5 @@ public class TaxiDemoFinal
         //Demo con varios personajes y taxis
         DemoAvanzadaFinal demoAvan = new DemoAvanzadaFinal();
         demoAvan.run();
-        
-        //Copia copia = new Copia();
-        //copia.run();
     }
 }

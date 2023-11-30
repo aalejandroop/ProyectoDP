@@ -125,39 +125,6 @@ public class TransportCompany
         boolean enc = false;
         List<Taxi> listaVehiculosDisponibles = new ArrayList<Taxi>();
         
-
-        
-        /*for(int i = 0; i<vehicles.size(); i++){
-            if(vehicles.get(i).getTargetLocation()==null&& vehicles.get(i).isFree()&&!assignments.containsKey(getVehicles().get(i))){
-                vehicles.get(i).setTargetLocation(passenger.getPickup());
-            }
-        }
-        Collections.sort(vehicles,new ComparadorTaxi());
-        
-        for(int i = 0; i < vehicles.size(); i++){
-            if(passenger.getCreditCard() > 20000){
-                if(vehicles.get(i).getTargetLocation()!=null&& vehicles.get(i).isFree() && !assignments.containsKey(getVehicles().get(i)) && vehicles.get(i).getOccupation() == 1 && !enc)  {
-                    enc = true;
-                    t = vehicles.get(i);    
-                }
-                else{
-                    if(vehicles.get(i).isFree()&&vehicles.get(i).getTargetLocation()!=null&& vehicles.get(i).getTargetLocation().equals(passenger.getPickup())){
-                        vehicles.get(i).clearTargetLocation();
-                    }    
-                }
-            }
-            else{
-                if(vehicles.get(i).getTargetLocation()!=null&& vehicles.get(i).isFree() && !assignments.containsKey(getVehicles().get(i)) && !enc)  {
-                    enc = true;
-                    t = vehicles.get(i);    
-                }
-                else{
-                    if(vehicles.get(i).isFree()&&vehicles.get(i).getTargetLocation()!=null&& vehicles.get(i).getTargetLocation().equals(passenger.getPickup())){
-                        vehicles.get(i).clearTargetLocation();
-                    }    
-                }
-            }
-        }*/
         for(int i = 0; i<vehicles.size(); i++){
             if (assignments.containsKey(vehicles.get(i))){
                 if(assignments.get(vehicles.get(i)).size() < vehicles.get(i).getOccupation()){
