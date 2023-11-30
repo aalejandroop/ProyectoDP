@@ -32,7 +32,8 @@ public class PassengerTest
     {   
         startLocation = new Location(1, 2);
         destination = new Location(2, 2);
-        pasajero = new Passenger(startLocation, destination, "Pedro", "Taxi Emilio"); 
+        pasajero = new PassengerVip(startLocation, destination, "Pedro", 30, 30000, Reliable.HIGH);
+        pasajero.setNombreTaxi("Taxi Emilio");
     }
 
     /**

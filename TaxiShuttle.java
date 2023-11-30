@@ -44,7 +44,7 @@ public class TaxiShuttle extends Taxi
         }
         else{
             setLocation(getLocation().nextLocation(getTargetLocation()));
-            System.out.println("@@@ Taxi: " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY());
+            System.out.println("@@@ Taxi: " + getName() + " moving to " + getLocation());
             if(getLocation().equals(getTargetLocation())){
                 if(this.passengers.size() == 0){
                     notifyPickupArrival();

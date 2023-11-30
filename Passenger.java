@@ -65,7 +65,7 @@ public abstract class Passenger
      */
     public String toString()
     {
-        return "Passenger "+getName()+" travelling from " +
+        return getClass().getName() + " " + getName() + " travelling from " +
         pickup + " to " + destination + " arrival time: " + arrivalTime + " money in the credit card: " + creditCard + " " + reliable;
     }
 
