@@ -32,9 +32,9 @@ public class TaxiExclusive extends Taxi
             incrementIdleCount();
         }
         else{
-            setLocation(super.getLocation().nextLocation(getTargetLocation()));
+            setLocation(getLocation().nextLocation(getTargetLocation()));
             System.out.println("@@@ Taxi: " + getName() + " moving to: " + getLocation().getX() + " - " + getLocation().getY());
-            if(super.getLocation().equals(getTargetLocation())){
+            if(getLocation().equals(getTargetLocation())){
                 if(this.passengers.size() == 0){
                     notifyPickupArrival();
                 }

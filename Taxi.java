@@ -242,12 +242,12 @@ public abstract class Taxi implements Actor
     {
         //TODO  implementar este método
         this.passengers.remove(this.passengers.first());
-        if(this.passengers.size() == 0){
+        /*if(this.passengers.size() == 0){
             clearTargetLocation();    
         }
         else{
             setTargetLocation(this.passengers.first().getDestination());
-        }
+        }*/
     }
 
     /**
@@ -297,6 +297,10 @@ public abstract class Taxi implements Actor
     
     public FuelConsumption getFuelConsumption(){
         return fuelConsumption;
+    }
+    
+    public int getPassengerSize(){
+        return passengers.size();
     }
     
     public String showFinalInfo()

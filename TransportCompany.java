@@ -123,8 +123,11 @@ public class TransportCompany
     public Taxi scheduleVehicle(Passenger passenger){
         Taxi t = null;
         boolean enc = false;
+        List<Taxi> listaVehiculosDisponibles = new ArrayList<Taxi>();
         
-        for(int i = 0; i<vehicles.size(); i++){
+
+        
+        /*for(int i = 0; i<vehicles.size(); i++){
             if(vehicles.get(i).getTargetLocation()==null&& vehicles.get(i).isFree()&&!assignments.containsKey(getVehicles().get(i))){
                 vehicles.get(i).setTargetLocation(passenger.getPickup());
             }
@@ -154,10 +157,53 @@ public class TransportCompany
                     }    
                 }
             }
+        }*/
+        for(int i = 0; i<vehicles.size(); i++){
+            if (assignments.containsKey(vehicles.get(i))){
+                if(assignments.get(vehicles.get(i)).size() < vehicles.get(i).getOccupation()){
+                    vehicles.get(i).setTargetLocation(passenger.getPickup());
+                    listaVehiculosDisponibles.add(vehicles.get(i));
+                }
+            }
+            else{
+                vehicles.get(i).setTargetLocation(passenger.getPickup());
+                listaVehiculosDisponibles.add(vehicles.get(i));
+            }
         }
-        return t;
-    }
-
+        Collections.sort(listaVehiculosDisponibles,new ComparadorTaxi());
+        
+        for(int i = 0; i < listaVehiculosDisponibles.size(); i++){
+            if(!enc){
+                if(passenger.getCreditCard() > 20000 && listaVehiculosDisponibles.get(i).getOccupation() == 1){
+                    enc = true;
+                    t = listaVehiculosDisponibles.get(i);
+                }
+                else{
+                    if (assignments.containsKey(listaVehiculosDisponibles.get(i))){        
+                        if(assignments.get(listaVehiculosDisponibles.get(i)).size() < listaVehiculosDisponibles.get(i).getOccupation() && listaVehiculosDisponibles.get(i).getOccupation() > 1 && passenger.getCreditCard() <= 20000){
+                            enc = true;
+                            t = listaVehiculosDisponibles.get(i);
+                        }
+                    }
+                    else{
+                        if(listaVehiculosDisponibles.get(i).getOccupation() > 1){
+                        enc = true;
+                        t = listaVehiculosDisponibles.get(i);
+                        }
+                    }
+                }
+                }
+            else{
+                if (assignments.containsKey(listaVehiculosDisponibles.get(i))){
+                    listaVehiculosDisponibles.get(i).setTargetLocation(assignments.get(listaVehiculosDisponibles.get(i)).first().getPickup());    
+                }
+                else{
+                    listaVehiculosDisponibles.get(i).clearTargetLocation();
+                }
+            }
+        }
+            return t;
+        }
     /**
      * Request a pickup for the given passenger.
      * @param passenger The passenger requesting a pickup.
@@ -212,7 +258,7 @@ public class TransportCompany
             if (taxi.getLocation().equals((assignments.get(taxi).first().getPickup()))){
                 taxi.pickup(assignments.get(taxi).first());
                 System.out.println("<<<< "+taxi + " picks up " + (assignments.get(taxi).first().getName()));
-                if (assignments.get(taxi).size() > 1){
+                /*if (assignments.get(taxi).size() > 1){
                     pasajeros = assignments.get(taxi);
                     pasajeros.remove(pasajeros.first());
                     assignments.remove(taxi);
@@ -220,7 +266,7 @@ public class TransportCompany
                 }
                 else{
                     assignments.remove(taxi);
-                }
+                }*/
                 
             }
         }
@@ -231,14 +277,25 @@ public class TransportCompany
      * When arrived at destination, offloads the current passenger and unasigns them.
      */
     public void arrivedAtDestination(Taxi taxi)
-    {  
+    {
+        TreeSet<Passenger> pasajeros = new TreeSet<Passenger>(new ComparadorPasHoraLlegada());
         if(taxi.getLocation().equals(taxi.getPasajero().getDestination())){
             System.out.println(">>>> "+ taxi + " offloads " + taxi.getPasajero().getName() + " travelling from " 
                 + taxi.getPasajero().getPickup() + " to " + taxi.getPasajero().getDestination());
             taxi.getPasajero().act();
-            if(taxi.getPasajeros().size() > 0){
-                taxi.setTargetLocation(taxi.getPasajero().getDestination());
-            }
+            if (assignments.get(taxi).size() > 1){
+                    pasajeros = assignments.get(taxi);
+                    pasajeros.remove(pasajeros.first());
+                    assignments.remove(taxi);
+                    assignments.put(taxi, pasajeros);
+                    if(assignments.get(taxi).size() > 0){
+                        taxi.setTargetLocation(assignments.get(taxi).first().getPickup());
+                    }
+                }
+                else{
+                    assignments.remove(taxi);
+                    taxi.clearTargetLocation();
+                }
         }
 
     }
