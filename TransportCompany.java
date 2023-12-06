@@ -52,8 +52,7 @@ public class TransportCompany
      */
     public List<Taxi> getVehicles()
     {       
-        //TODO implementar el método 
-
+        
         return vehicles;
     }
 
@@ -62,7 +61,7 @@ public class TransportCompany
      */
     public List<Passenger> getPassengers()
     {
-        //TODO implementar el método 
+        
 
         return passengers;
     }
@@ -72,7 +71,7 @@ public class TransportCompany
      */
     public void addVehicle(Taxi vehicle)
     {
-        //TODO implementar el método
+       
         vehicles.add(vehicle);
     }
 
@@ -82,44 +81,17 @@ public class TransportCompany
      */
     public void addPassenger(Passenger passenger)
     {
-        //TODO implementar el método
+      
         passengers.add(passenger);
 
     }
 
     /**
      * Find a the most closed free vehicle to a location, if any.
-     * @param location location to go
+     * @param passenger who needs a taxi
      * @return A free vehicle, or null if there is none.
      */
-    /*public Taxi scheduleVehicle(Location location)
-    {
-        //TODO implementar el método
-        boolean enc = false;
-        Taxi t = null;
-        for(int i = 0; i<vehicles.size(); i++){
-            if(vehicles.get(i).getTargetLocation()==null&& vehicles.get(i).isFree()&&!assignments.containsKey(getVehicles().get(i))){
-                vehicles.get(i).setTargetLocation(location);
-            }
-        }
-        Collections.sort(vehicles,new ComparadorTaxi());
-
-        for(int i = 0; i<vehicles.size(); i++){
-
-            if( vehicles.get(i).isFree()&& vehicles.get(i).getTargetLocation().equals(location) && !enc){
-                enc =true;
-                t=vehicles.get(i);
-
-            }else{
-                if(vehicles.get(i).isFree()&&vehicles.get(i).getTargetLocation()!=null&& vehicles.get(i).getTargetLocation().equals(location)){
-                    vehicles.get(i).clearTargetLocation();
-                }
-            }
-        }
-        return t;
-    }
-    */
-   
+    
     public Taxi scheduleVehicle(Passenger passenger){
         Taxi t = null;
         boolean enc = false;
@@ -178,7 +150,6 @@ public class TransportCompany
      */
     public boolean requestPickup(Passenger passenger)
     {
-        //TODO implementar el método
         Taxi t = null;
         t = scheduleVehicle(passenger);
         TreeSet<Passenger> pasajeros = new TreeSet<Passenger>(new ComparadorPasHoraLlegada());
@@ -204,15 +175,6 @@ public class TransportCompany
             
         }
             
-            
-            /*t.setTargetLocation(passenger.getPickup());
-            //assignments.add(new Assignment(t, passenger));
-            assignments.put(t, );
-            System.out.println("<<<< Taxi " + t.getName() + " at " + t.getLocation() + " go to pickup passenger " + passenger.getName() +
-                " at " + passenger.getPickup());
-
-            return true;
-            */
     }   
 
     /**
@@ -227,8 +189,6 @@ public class TransportCompany
                 System.out.println("<<<< "+taxi + " picks up " + (assignments.get(taxi).first().getName()));
             }
         }
-        //TODO el pasajero debe guardar el nombre del taxi que le ha recogido
-        //TODO el taxi debe recoger al pasajero
 
     /**
      * When arrived at destination, offloads the current passenger and unasigns them.
@@ -256,7 +216,28 @@ public class TransportCompany
 
     }
     
+    
+    /**
+     * Show the final information of the TransportCompany
+     */
     public void showFinalInfo(){
+         Taxi t;
+        t= vehicles.get(0);
+        for(int i =0; i< vehicles.size(); i++){
+            if(vehicles.get(i).getIdleCount() < t.getIdleCount()){
+                t=vehicles.get(i);
+            }
+        }
+        System.out.println("-->> Taxi(s) with less time not active <<--");
+        System.out.println(t.showFinalInfo());
+        
+        System.out.println("-->> Taxi(s) with highest evaluation <<--");
+        for(int i =0; i< vehicles.size(); i++){
+            if(vehicles.get(i).getValuation() > t.getValuation()){
+                t=vehicles.get(i);
+            }
+        }
+        System.out.println(t.showFinalInfo());
         System.out.println("");
     }
 }

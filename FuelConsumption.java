@@ -19,18 +19,25 @@ public enum FuelConsumption
         this.valor = valor;
     }
     
+    /**
+     * Get the spend type of the taxi
+     * @return string that refers the spend of the taxi.
+     */
     public String getGasto(){
         return this.gasto;
     }
     
+    /**
+     * Get the value of the spend type of the taxi.
+     * @return int that refers the spend type.
+     */
     public int getValor(){
         return this.valor;
     }
     
-    /*public void setValor(int valor){
-        this.valor = valor;
-    }*/
-    
+    /**
+     * Show the final info of FuelConsumption
+     */
     @Override
     public String toString(){
         return " <fuel consumption: " + gasto + " (value: " + valor + ")>";

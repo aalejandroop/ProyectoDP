@@ -8,27 +8,17 @@ import java.util.*;
  */
 public abstract class Taxi implements Actor
 {
-    // The Taxi Company of this Taxi.
-    private TransportCompany company;   //TODO cambiar a private
-    // Where the vehicle is.
-    private Location location;     //TODO cambiar a private
-    // Where the vehicle is headed.
-    private  Location targetLocation;   //TODO cambiar a private
-    // Record how often the vehicle has nothing to do.
-    private int idleCount;       //TODO cambiar a private
-    //name of the taxi
-    private String name; //TODO cambiar a private
-    //TODO añadir campos necesarios
+// The Taxi Company of this Taxi.
+    private TransportCompany company;   
+    private Location location;     
+    private  Location targetLocation;   
+    private int idleCount;      
+    private String name;
     protected TreeSet<Passenger> passengers;
-    
     private int passengersTransported;
-    
     protected FuelConsumption fuelConsumption;
-    
-    private int valuation;
-    
+    protected int valuation;
     protected int occupation;//min 1 max 4
-    
     private Location initialLocation;
     
     /**
@@ -57,8 +47,7 @@ public abstract class Taxi implements Actor
         this.fuelConsumption = fuelConsumption;
         }
 
-        //TODO resto de inicializaciones pendientes
-
+        
     /**
      * @return the name of the taxi
      */
@@ -67,6 +56,9 @@ public abstract class Taxi implements Actor
         return name;
     }
 
+    public int getValuation(){
+        return this.valuation;
+    }
     /**
      * Get the location.
      * @return Where this taxi is currently located.
@@ -75,19 +67,25 @@ public abstract class Taxi implements Actor
     {
         return location;
     }
-    
+    /**
+     * Get the initial location of the taxi.
+     * @return Where this taxi is initaly located.
+     */
     public Location getInitialLocation(){
         return this.initialLocation;
     }
 
     /**
      * Get the passenger.
-     * @return the current passenger.
+     * @return the current passenger who is the first passenger of the TreeSet.
      */
     public Passenger getPasajero(){
         return this.passengers.first();
     }
-    
+    /**
+     * Get the TreeSet of passengers.
+     * @return TreeSet of passengers.
+     */
     public TreeSet<Passenger> getPasajeros(){
         return passengers;
     }
@@ -176,7 +174,7 @@ public abstract class Taxi implements Actor
     }
 
     /**
-     * Return details of the taxi, such as where it is.
+     * Return details of the taxi, such as where it is, occupation, name and the type of taxi.
      * @return A string representation of the taxi.
      */
     public String toString()
@@ -190,7 +188,7 @@ public abstract class Taxi implements Actor
      */
     public boolean isFree()
     {
-        //TODO  implementar este método
+      
         if (passengers.size() < occupation){
             return true;
         }
@@ -203,7 +201,7 @@ public abstract class Taxi implements Actor
      */
     public void notifyPickupArrival()
     {
-        //TODO  implementar este método
+      
         company.arrivedAtPickup(this);
 
     }
@@ -213,7 +211,7 @@ public abstract class Taxi implements Actor
      */
     public void notifyPassengerArrival(Passenger passenger)
     {
-        //TODO  implementar este método
+      
         if(this.location.equals(passenger.getDestination())){
             company.arrivedAtDestination(this);
 
@@ -227,7 +225,7 @@ public abstract class Taxi implements Actor
      */
     public void pickup(Passenger passenger)
     {
-        //TODO  implementar este método
+       
         passenger.setNombreTaxi(this.getName());
         this.passengers.add(passenger);
         this.targetLocation = passenger.getDestination();
@@ -236,18 +234,13 @@ public abstract class Taxi implements Actor
     }
 
     /**
-     * Offload the passenger.
+     * Offload the first passenger of the TreeSet.
      */
     public void offloadPassenger()
     {
-        //TODO  implementar este método
+       
         this.passengers.remove(this.passengers.first());
-        /*if(this.passengers.size() == 0){
-            clearTargetLocation();    
-        }
-        else{
-            setTargetLocation(this.passengers.first().getDestination());
-        }*/
+      
     }
 
     /**
@@ -255,7 +248,7 @@ public abstract class Taxi implements Actor
      */
     public int passengersTransported()
     {
-        //TODO  implementar este método
+       
         return this.passengersTransported;
     }
 
@@ -264,7 +257,7 @@ public abstract class Taxi implements Actor
      */
     protected void incrementPassengersTransported()
     {
-        //TODO  implementar este método
+        
         this.passengersTransported++;
     }
 
@@ -274,7 +267,7 @@ public abstract class Taxi implements Actor
      */
     public int distanceToTheTargetLocation()
     {
-        //TODO  implementar este método
+        
         return this.location.distance(this.targetLocation);
     }
 
@@ -291,23 +284,37 @@ public abstract class Taxi implements Actor
     
     public abstract int obtainComsumption();
     
+    
+    /**
+     * Get the occupation that is the amount of people that can enter in the taxi.
+     * @return a int tha is the occupation.
+     */
     public int getOccupation(){
         return this.occupation;
     }
     
+    
+    /**
+     * Get the fuelconsumption.
+     * @return FuelConsumption of the taxi.
+     */
     public FuelConsumption getFuelConsumption(){
         return fuelConsumption;
     }
     
+    /**
+     * Get the actual amount of passengers that a taxi have.
+     * @return int that refers passengers size.
+     */
     public int getPassengerSize(){
         return passengers.size();
     }
     
-    public String showFinalInfo()
-    {
-        //TODO  implementar este método
-        return "Taxi " + getName() + " at location " + getLocation().getX() + "," + getLocation().getY() + " - passengers transported: " + passengersTransported() + 
-        " - non active for: " + getIdleCount() + " times";
-
-    }
+    /**
+     * @return final information of the taxi.
+     */
+    public abstract String showFinalInfo(); 
+    
+    
+   
 }

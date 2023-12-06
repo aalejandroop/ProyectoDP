@@ -18,18 +18,25 @@ public enum Reliable
         this.valor = valor;
     }
     
+    /**
+     * Get the type fiability of the passenger.
+     * @return a string that is the fiability of the passenger.
+     */
     public String getFiabilidad(){
         return this.fiabilidad;
     }
     
+    /**
+     * Get the value of the fiability.
+     * @return int that is the value of the fiability.
+     */
     public int getValor(){
         return this.valor;
     }
     
-    /*public void setValor(int valor){
-        this.valor = valor;
-    }*/
-    
+    /**
+     * @return a string with the final information.
+     */
     @Override
     public String toString(){
         return "<reliable: " + fiabilidad + " (value: " + valor + ")>";

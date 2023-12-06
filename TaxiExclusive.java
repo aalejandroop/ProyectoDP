@@ -7,13 +7,13 @@
 public class TaxiExclusive extends Taxi
 {
     private int weight;
-    private int popularidad;
+    private int popularidad=6;
     /**
      * Constructor for objects of class TaxiExclusive
      */
     public TaxiExclusive(TransportCompany company, Location location, String name, FuelConsumption fuelConsumption, int weight)
     {
-        //TODO resto de inicializaciones pendientes
+        
         super(company, location, name, fuelConsumption);
         this.weight = weight;
     }
@@ -22,12 +22,14 @@ public class TaxiExclusive extends Taxi
     public int obtainComsumption(){
         int distancia = getLocation().distance(getInitialLocation());
         int consumo;
-        consumo = this.weight * super.fuelConsumption.getValor() * distancia;
+        consumo = (this.weight/2) * fuelConsumption.getValor() * distancia;
         return consumo;
     }
 
     @Override
     public void act(){
+      
+
         if(!hasTargetLocation()){
             incrementIdleCount();
         }
@@ -39,8 +41,10 @@ public class TaxiExclusive extends Taxi
                     notifyPickupArrival();
                 }
                 else{
+                    
                     serPopularEnRedes();//aumenta/disminuye popularidad (Taxi Exclusive)
                     notifyPassengerArrival(this.passengers.first());
+                    valuation = valuation + this.passengers.first().calculateEvaluationValue();
                     offloadPassenger();
                     incrementPassengersTransported();
                 }
@@ -50,12 +54,19 @@ public class TaxiExclusive extends Taxi
 
     }
 
+   /**
+     * Increment or decrement the taxi's popularity depending of the money that the passenger have in his credit card.
+     */ 
     private void serPopularEnRedes(){
-        if(super.getPasajero().getCreditCard()>20000){
+        if(this.getPasajero().getCreditCard()>20000){
             this.popularidad=this.popularidad +4;
         }
         else{
             this.popularidad=this.popularidad-1;
         }
+    }
+     public String showFinalInfo()
+    {
+        return toString()+" - passengers transported: "+ passengersTransported() + " - non active for: "+ getIdleCount() + " times - valuation: "+ valuation + " - consumption: " + obtainComsumption()+ " - popularity: " + popularidad;
     }
 }

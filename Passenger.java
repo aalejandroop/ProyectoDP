@@ -104,8 +104,7 @@ public abstract class Passenger
     public String showFinalInfo()
     {
         // TO DO
-        return "Passenger "+ getName()+" in location " +
-        getDestination().getX() + "," + getDestination().getY() + " transported by: " + getNombreTaxi();
+        return toString() + " with " + getCreditCard()+ " money in the credit card ";
     }
     
     public int getArrivalTime(){

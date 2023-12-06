@@ -186,7 +186,7 @@ public class DemoAvanzadaFinal
         for(Passenger passenger : passengers) {
             System.out.println(passenger.showFinalInfo());
         }
-        //Muestra los Taxis con menos turnos inactivos y Taxis con más valoración
+        
         company.showFinalInfo();
     }
 

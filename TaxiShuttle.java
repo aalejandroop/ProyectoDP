@@ -1,4 +1,3 @@
-
 /**
  * Write a description of class TaxiShuttle here.
  * 
@@ -7,13 +6,13 @@
  */
 public class TaxiShuttle extends Taxi
 {
-    // instance variables - replace the example below with your own
+   
     /**
      * Constructor for objects of class TaxiShuttle
      */
     public TaxiShuttle(TransportCompany company, Location location, String name, FuelConsumption fuelComsumption, int ocupation)
     {
-        //TODO resto de inicializaciones pendientes
+       
         super(company, location, name, fuelComsumption);
         if (ocupation<1){
             ocupation = 1;
@@ -33,7 +32,7 @@ public class TaxiShuttle extends Taxi
     public int obtainComsumption(){
         int distancia = getLocation().distance(getInitialLocation());
         int consumo;
-        consumo = super.fuelConsumption.getValor() * distancia;
+        consumo =fuelConsumption.getValor() * distancia;
         return consumo;
     }
     
@@ -52,18 +51,20 @@ public class TaxiShuttle extends Taxi
                 else{
                     if(getLocation().equals(this.passengers.first().getDestination())){
                         notifyPassengerArrival(this.passengers.first());
+                        valuation = valuation + this.passengers.first().calculateEvaluationValue();
                         offloadPassenger();
                         incrementPassengersTransported();
                     }
-                    /*else{
-                        if(this.passengers.size() < ocupation){
-                            notifyPickupArrival();
-                        }
-                    }*/
+                    
                 }
 
             }
 
         }
+    }
+    
+    public String showFinalInfo()
+    {
+        return toString()+" - passengers transported: "+ passengersTransported() + " - non active for: "+ getIdleCount() + " times - valuation: "+ valuation + " - consumption: " + obtainComsumption();
     }
 }
