@@ -141,8 +141,13 @@ public class TransportCompany
                 }
             }
         }
-            return t;
+        for(int i = 0; i < vehicles.size(); i++){
+            if(assignments.containsKey(vehicles.get(i))){
+                vehicles.get(i).setTargetLocation(assignments.get(vehicles.get(i)).first().getPickup());
+            }
         }
+            return t;
+    }
     /**
      * Request a pickup for the given passenger.
      * @param passenger The passenger requesting a pickup.
